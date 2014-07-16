@@ -219,7 +219,7 @@ __Arguments__
 
 ### Query field setters
 
-### `static` `object` aggregation(type, name, [aggregationArgs...])
+#### `static` `object` aggregation(type, name, [aggregationArgs...])
 
 Create aggregation spec.
 
@@ -231,7 +231,7 @@ __Arguments__
 
 ---
 
-### `static` `object[]` aggregations(list...)
+#### `static` `object[]` aggregations(list...)
 
 Return array of aggregations.
 
@@ -241,7 +241,7 @@ __Arguments__
 
 ---
 
-### `static` `object` postAggregation(type, name, [args...])
+#### `static` `object` postAggregation(type, name, [args...])
 
 Create post-aggregation spec.
 
@@ -253,7 +253,7 @@ __Arguments__
 
 ---
 
-### `static` `object[]` postAggregations(list...)
+#### static` `object[]` postAggregations(list...)
 
 Return array of post-aggregation specs.
 
@@ -273,7 +273,7 @@ __Arguments__
 
 ---
 
-### `Query` dataSource(dataSource)
+#### `Query` dataSource(dataSource)
 
 Set `dataSource` field
 
