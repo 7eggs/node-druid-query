@@ -296,6 +296,28 @@ __Arguments__
 
 ---
 
+#### `Query` aggregation(type, name, [aggregationArgs...])
+
+Add aggregation spec to `aggregations`.
+
+__Arguments__
+
+* type `string` - Aggregation type: `cardinality`, `count`, `doubleSum`, `hyperUnique`, `javascript`, `longSum`, `max`, `min`.
+* name `string` - Aggregation output name.
+* aggregationArgs `...*` - Aggregation specific arguments. Read below about arguments in `Aggregations` section.
+
+---
+
+#### `Query` aggregations(list...)
+
+Set `aggregations` field.
+
+__Arguments__
+
+* list `object[] | object...` - Array of aggregation specs. Specs can be returned by `Query.aggregation()` or raw JavaScript objects.
+
+---
+
 #### `Query` context(data)
 
 Set `context` field.
@@ -422,6 +444,28 @@ __Arguments__
 
 * type `string` - Spec type: `alphaNumeric`, `lexicographic`, `numeric`.
 * args `...*` - Arguments specific to spec type. They are described in `Metric` section.
+
+---
+
+#### `Query` postAggregation(type, name, [args...])
+
+Add post-aggregation spec to `postAggregations` array.
+
+__Arguments__
+
+* type `string` - Post-aggregation type: `arithmetic`, `constant`, `fieldAccess`, `hyperUniqueCardinality`, `javascript`.
+* name `string` - Post-aggregation output name.
+* args `...*` - Post-aggregation specific arguments. Read about arguments in `Post-Aggregations` section.
+
+---
+
+#### `Query` postAggregations(list...)
+
+Set `postAggregations` field.
+
+__Arguments__
+
+* list `object[] | object...` - Array of aggregation specs. They can be ones returned by `Query.postAggregation()` or raw JavaScript objects.
 
 ---
 
