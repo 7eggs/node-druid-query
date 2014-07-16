@@ -269,7 +269,7 @@ Set type of query. This method should be used only if you're using `Query` base 
 
 __Arguments__
 
-* type `string` - Valid query type: `groupBy`, 'search`, 'segmentMetadata`, `timeBoundary`, `timeseries`, `topN`.
+* type `string` - Valid query type: `groupBy`, `search`, `segmentMetadata`, `timeBoundary`, `timeseries`, `topN`.
 
 ---
 
