@@ -253,7 +253,7 @@ __Arguments__
 
 ---
 
-#### static` `object[]` postAggregations(list...)
+#### `static` `object[]` postAggregations(list...)
 
 Return array of post-aggregation specs.
 
