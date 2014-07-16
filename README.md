@@ -217,7 +217,25 @@ __Arguments__
 
 ---
 
-### Query field setters
+### Query methods
+
+#### exec(callback)
+
+Execute query (only if it's attached to client e.g. created by some client instance).
+
+__Arguments__
+
+* callback(err, result) `function` - The callback function.
+
+---
+
+#### `object` toJSON()
+
+Returns query data.
+
+---
+
+### Query field setter methods
 
 #### `static` `object` aggregation(type, name, [args...])
 
@@ -341,7 +359,7 @@ Create OrderBy spec.
 __Arguments__
 
 * dimension `string` - Dimension to sort by.
-* direction `string` - Sorting direction. Default: `ASCENDING`
+* direction `string` - Sorting direction. Default: `ASCENDING`.
 
 ---
 
@@ -353,7 +371,26 @@ __Arguments__
 
 * type `string` - Post-aggregation type: `arithmetic`, `constant`, `fieldAccess`, `hyperUniqueCardinality`, `javascript`.
 * name `string` - Post-aggregation output name.
-* args `...*` - Post-aggregation specific arguments. Read about arguments in `Post-Aggregations` section.
+* args `...*` - Post-aggregation specific arguments. Read about arguments below.
+
+__args__ depending on `type` value:
+
+* `arithmetic`:
+    * `op` `string` - Arithmetic operation: +, -, * or /.
+    * `fields` `object[] | ...object` - List of Post-Aggregation specs: raw objects or `Query.postAggregation()` calls.
+
+* `constant`:
+    * `value` `*` - Constant value.
+
+* `fieldAccess`:
+    * `fieldName` `string` - Name of aggregator field.
+
+* `hyperUniqueCardinality`:
+    * `fieldName` `string` - Name of hyperUnique aggregator.
+
+* `javascript`:
+    * `fieldNames` `string[]` - List of aggregator names - passed as arguments to function.
+    * `fn` `string | function` - Post-aggregator function.
 
 ---
 
@@ -378,7 +415,7 @@ __Arguments__
 
 ---
 
-#### `Query` aggregation(type, name, [aggregationArgs...])
+#### `Query` aggregation(type, name, [args...])
 
 Add aggregation spec to `aggregations`.
 
@@ -386,7 +423,7 @@ __Arguments__
 
 * type `string` - Aggregation type: `cardinality`, `count`, `doubleSum`, `hyperUnique`, `javascript`, `longSum`, `max`, `min`.
 * name `string` - Aggregation output name.
-* aggregationArgs `...*` - Aggregation specific arguments. Read above about arguments in `Query.aggregation()` description.
+* args `...*` - Aggregation specific arguments. Read above about arguments in `Query.aggregation()` description.
 
 ---
 
@@ -571,7 +608,7 @@ __Arguments__
 
 * type `string` - Post-aggregation type: `arithmetic`, `constant`, `fieldAccess`, `hyperUniqueCardinality`, `javascript`.
 * name `string` - Post-aggregation output name.
-* args `...*` - Post-aggregation specific arguments. Read about arguments in `Post-Aggregations` section.
+* args `...*` - Post-aggregation specific arguments. Read above about arguments in `Query.postAggregation()` method description.
 
 ---
 
