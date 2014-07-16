@@ -370,6 +370,28 @@ __Arguments__
 
 ---
 
+#### `Query` having(type, [args...])
+
+Set `having` field.
+
+__Arguments__
+
+* type `string` - HavingSpec type: `and`, `equalTo`, `greaterThan`, `lessThan`, `not`, `or`.
+* args `...*` - Arguments specific to spec type. They are described in `Having` section.
+
+---
+
+#### `Query` intervals(start, end)
+
+Set intervals.
+
+__Arguments__
+
+* start `number | string | Date` - Interval start.
+* end `number | string | Date` - Interval end.
+
+---
+
 
 #### `Query` queryType(type)
 
