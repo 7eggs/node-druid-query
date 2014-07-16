@@ -241,6 +241,17 @@ __Arguments__
 
 ---
 
+#### `static` `object` filter(type, [args...])
+
+Create filter spec.
+
+__Arguments__
+
+* type `string` - Filter type: `and`, `javascript`, `not`, `or`, `regex`, `selector`.
+* args `...*` - Filter-specific arguments. They are described in `Filters` section.
+
+---
+
 #### `static` `object` postAggregation(type, name, [args...])
 
 Create post-aggregation spec.
