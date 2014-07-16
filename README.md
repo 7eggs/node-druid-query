@@ -181,6 +181,7 @@ __Arguments__
 
 * url `String` - Druid node URL.
 
+---
 
 #### `static` fromZooKeeper(connectionString, discoveryPath, [options], callback)
 
@@ -193,6 +194,8 @@ __Arguments__
 * options `object` - Lookup options. We have only one option currently available:
     * `preferSSL` - Use SSL port of Druid node if available. Default: `false`.
 
+---
+
 #### dataSources(callback)
 
 Get list of dataSources.
@@ -200,6 +203,8 @@ Get list of dataSources.
 __Arguments__
 
 * callback(err, dataSources) `function` - The callback function.
+
+---
 
 #### exec(query, callback)
 
@@ -210,7 +215,10 @@ __Arguments__
 * query `Query` - Query object.
 * callback(err, result) `function` - The callback function.
 
+---
+
 ### Query methods
+
 TODO
 ----
 * Tests :-)
