@@ -227,7 +227,7 @@ __Arguments__
 
 * type `string` - Aggregation type: `cardinality`, `count`, `doubleSum`, `hyperUnique`, `javascript`, `longSum`, `max`, `min`.
 * name `string` - Aggregation output name.
-* aggregationArgs `...*` - Aggregation specific arguments. Read below about arguments in `Aggregations` section.
+* aggregationArgs `...*` - Aggregation-specific arguments. Read below about arguments in `aggregation()` method description.
 
 ---
 
@@ -241,6 +241,35 @@ __Arguments__
 
 ---
 
+#### `static` `object` extractionFunction(type, [args...])
+
+Create `DimExtractionFn` spec.
+
+__Arguments__
+
+* type `string` - Spec type: `javascript`, `partial`, `regex`, `searchQuery`, `time`.
+* args `...*` - Function-specific arguments.
+
+__args__ depending on extraction function `type`:
+
+* `javascript`:
+    * `fn` `string | function` - JavaScript function.
+
+* `partial`:
+    * `regex` `string | RegExp` - Regular expression to match.
+
+* `regex`:
+    * `regex` `string | RegExp` - Regular expression to match.
+
+* `searchQuery`:
+    * `query` `object | ...*` - If one argument is specified we treat it as `SearchQuerySpec` object. Otherwise `Query.query()` is called for all the passed arguments.
+
+* `time`:
+    * `input` `string` - Input time format.
+    * `output` `string` - Output time format.
+
+---
+
 #### `static` `object` filter(type, [args...])
 
 Create filter spec.
@@ -248,7 +277,30 @@ Create filter spec.
 __Arguments__
 
 * type `string` - Filter type: `and`, `javascript`, `not`, `or`, `regex`, `selector`.
-* args `...*` - Filter-specific arguments. They are described in `Filters` section.
+* args `...*` - Filter-specific arguments. Described below.
+
+__args__ depending on filter `type`:
+
+* `and`:
+    * `filters` `object[] | ...object` - List of filters for `AND`.
+
+* `javascript`:
+    * `dimension` `string` Dimension to which filter is applied.
+    * `fn` `string | function` Function to apply (should return boolean value).
+
+* `not`:
+    * `filter` `string` - Filter to oppose.
+
+* `or`:
+    * `filters` `object[] | ...object` - List of filters for `OR`.
+
+* `regex`:
+    * `dimension` `string` - Dimension to which filter is applied.
+    * `patter` `string` - Java regular expression.
+
+* `selector`:
+    * `dimensions` `string` - Dimension to which filter is applied.
+    * `value` `*` - Value to match.
 
 ---
 
@@ -323,9 +375,9 @@ __aggregationsArgs__ depending on aggregation type:
 
 * `javascript`:
     * `fieldNames` `string[]` - Names of fields which are passed to aggregate function.
-    * `aggregateFn` `string | Function` - Aggregation function.
-    * `combineFn` `string | Function` - Combines partials.
-    * `resetFn` `string | Function` - Initialization function.
+    * `aggregateFn` `string | function` - Aggregation function.
+    * `combineFn` `string | function` - Combines partials.
+    * `resetFn` `string | function` - Initialization function.
 
 * `longSum`:
     * `fieldName` `string` - Name of the metric column to sum over.
@@ -429,7 +481,30 @@ Set `having` field.
 __Arguments__
 
 * type `string` - HavingSpec type: `and`, `equalTo`, `greaterThan`, `lessThan`, `not`, `or`.
-* args `...*` - Arguments specific to spec type. They are described in `Having` section.
+* args `...*` - Arguments specific to spec type.
+
+__args__ depending on `type` value:
+
+* `and`:
+    * `specs` `object[] | ...object` - List of specs for `AND` operation.
+
+* `equalTo`:
+    * `metric` `string` - Metric name.
+    * `value` `*` - Value to match.
+
+* `greaterThan`:
+    * `metric` `string` - Metric name.
+    * `value` `*` - Value to compare.
+
+* `lessThan`:
+    * `metric` `string` - Metric name.
+    * `value` `*` - Value to compare.
+
+* `not`:
+    * `spec` `object` - HavingSpec to oppose.
+
+* `or`:
+    * `specs` `object[] | ...object` - List of specs for `OR` operation.
 
 ---
 
