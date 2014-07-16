@@ -252,6 +252,17 @@ __Arguments__
 
 ---
 
+#### `static` `object` orderBy(dimension, [direction])
+
+Create OrderBy spec.
+
+__Arguments__
+
+* dimension `string` - Dimension to sort by.
+* direction `string` - Sorting direction. Default: `ASCENDING`
+
+---
+
 #### `static` `object` postAggregation(type, name, [args...])
 
 Create post-aggregation spec.
@@ -271,6 +282,17 @@ Return array of post-aggregation specs.
 __Arguments__
 
 * list `object[] | object...` - Array of aggregation specs. They can be ones returned by `Query.postAggregation()` or raw JavaScript objects.
+
+---
+
+#### `static` `object` query([type], value...)
+
+Create SearchQuery spec.
+
+__Arguments__
+
+* type `string` - SearchQuery type: `insensitive_contains`, `fragment`. Default is `fragment`.
+* value `string | string[] | ...string` - Value(s) to match. If `type` is `fragment` value is treated as array. If type is `insensitive_contains` value is used as `string`.
 
 ---
 
