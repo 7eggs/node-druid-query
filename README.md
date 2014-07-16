@@ -225,7 +225,7 @@ Create aggregation spec.
 
 __Arguments__
 
-* type `string` - Aggregation type: 'cardinality', 'count', 'doubleSum', 'hyperUnique', 'javascript', 'longSum', 'max', 'min.
+* type `string` - Aggregation type: `cardinality`, `count`, `doubleSum`, `hyperUnique`, `javascript`, `longSum`, `max`, `min`.
 * name `string` - Aggregation output name.
 * aggregationArgs `...*` - Aggregation specific arguments. Read below about arguments in `Aggregations` section.
 
@@ -247,7 +247,7 @@ Create post-aggregation spec.
 
 __Arguments__
 
-* type `string` - Post-aggregation type: 'arithmetic', 'constant', 'fieldAccess', 'hyperUniqueCardinality', 'javascript'.
+* type `string` - Post-aggregation type: `arithmetic`, `constant`, `fieldAccess`, `hyperUniqueCardinality`, `javascript`.
 * name `string` - Post-aggregation output name.
 * args `...*` - Post-aggregation specific arguments. Read about arguments in `Aggregations` section.
 
@@ -259,7 +259,7 @@ Return array of post-aggregation specs.
 
 __Arguments__
 
-* list `object[] | object...` - Array of aggregation specs. They can be ones returned by `Query.aggregation()` or raw JavaScript objects.
+* list `object[] | object...` - Array of aggregation specs. They can be ones returned by `Query.postAggregation()` or raw JavaScript objects.
 
 ---
 
