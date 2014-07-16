@@ -233,7 +233,7 @@ __args__ depending on aggregation type:
 
 * `cardinality`:
     * `fieldNames` `string[]` - Fields to compute cardinality over.
-    * `byRow` `boolean` If we should compute cardinality over distinct combinations. Default: `false`.
+    * `byRow` `boolean` - If we should compute cardinality over distinct combinations. Default: `false`.
 
 * `count`:
     * Nothing here :-)
@@ -315,8 +315,8 @@ __args__ depending on filter `type`:
     * `filters` `object[] | ...object` - List of filters for `AND`.
 
 * `javascript`:
-    * `dimension` `string` Dimension to which filter is applied.
-    * `fn` `string | function` Function to apply (should return boolean value).
+    * `dimension` `string` - Dimension to which filter is applied.
+    * `fn` `string | function` - Function to apply (should return boolean value).
 
 * `not`:
     * `filter` `string` - Filter to oppose.
@@ -460,7 +460,7 @@ Set filter spec.
 __Arguments__
 
 * type `string` - Filter type: `and`, `javascript`, `not`, `or`, `regex`, `selector`.
-* args `...*` - Filter-specific arguments. They are described in `Filters` section.
+* args `...*` - Filter-specific arguments. They are described in `Query.filter()` method description.
 
 ---
 
@@ -548,7 +548,18 @@ Set `TopNMetricSpec` identified by `metric` value.
 __Arguments__
 
 * type `string` - Spec type: `alphaNumeric`, `lexicographic`, `numeric`.
-* args `...*` - Arguments specific to spec type. They are described in `Metric` section.
+* args `...*` - Arguments specific to spec type. They are described below.
+
+__args__ depending on `type` value:
+
+* `alphaNumeric`:
+    * `previousStop` `string` - The starting point of the lexicographic sort.
+
+* `lexicographic`:
+    * `previousStop` `string` - The starting point of the alpha-numeric sort.
+
+* `numeric`:
+    * `metric` `string` - The actual metric field in which results will be sorted by.
 
 ---
 
