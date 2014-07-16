@@ -37,7 +37,7 @@ q1.exec(function(err, result) {
     beCoolWith(result)
   }
 })
-Ч
+
 var q2 = new Druid.TimeBoundaryQuery()
 q2.dataSource('wikipedia')
 client.exec(q2, function(err, result) {
