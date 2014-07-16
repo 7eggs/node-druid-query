@@ -179,7 +179,7 @@ Create client instance.
 
 __Arguments__
 
-* url `String` - Druid node URL.
+* url `string` - Druid node URL.
 
 ---
 
@@ -217,7 +217,71 @@ __Arguments__
 
 ---
 
-### Query methods
+### Query field setters
+
+### `static` `object` aggregation(type, name, [aggregationArgs...])
+
+Create aggregation spec.
+
+__Arguments__
+
+* type `string` - Aggregation type: 'cardinality', 'count', 'doubleSum', 'hyperUnique', 'javascript', 'longSum', 'max', 'min.
+* name `string` - Aggregation output name.
+* aggregationArgs `...*` - Aggregation specific arguments. Read below about arguments in `Aggregations` section.
+
+---
+
+### `static` `object[]` aggregations(list...)
+
+Return array of aggregations.
+
+__Arguments__
+
+* list `object[] | object...` - Array of aggregation specs. Specs can be returned by `Query.aggregation()` or raw JavaScript objects.
+
+---
+
+### `static` `object` postAggregation(type, name, [args...])
+
+Create post-aggregation spec.
+
+__Arguments__
+
+* type `string` - Post-aggregation type: 'arithmetic', 'constant', 'fieldAccess', 'hyperUniqueCardinality', 'javascript'.
+* name `string` - Post-aggregation output name.
+* args `...*` - Post-aggregation specific arguments. Read about arguments in `Aggregations` section.
+
+---
+
+### `static` `object[]` postAggregations(list...)
+
+Return array of post-aggregation specs.
+
+__Arguments__
+
+* list `object[] | object...` - Array of aggregation specs. They can be ones returned by `Query.aggregation()` or raw JavaScript objects.
+
+---
+
+#### `Query` queryType(type)
+
+Set type of query. This method should be used only if you're using `Query` base class. All the `Query` descendants have `queryType` field set automatically.
+
+__Arguments__
+
+* type `string` - Valid query type: `groupBy`, 'search`, 'segmentMetadata`, `timeBoundary`, `timeseries`, `topN`.
+
+---
+
+### `Query` dataSource(dataSource)
+
+Set `dataSource` field
+
+__Arguments__
+
+* dataSource `string` - Name of data source to query.
+
+---
 
 TODO
 ----
