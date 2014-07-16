@@ -296,13 +296,18 @@ __Arguments__
 
 ---
 
-#### `Query` queryType(type)
+#### `Query` context(data)
 
-Set type of query. This method should be used only if you're using `Query` base class. All the `Query` descendants have `queryType` field set automatically.
+Set `context` field.
 
 __Arguments__
 
-* type `string` - Valid query type: `groupBy`, `search`, `segmentMetadata`, `timeBoundary`, `timeseries`, `topN`.
+* data `object` - Query-specific options. I did not found any documentation. So look into source of `BaseQuery` class [here](https://github.com/metamx/druid/blob/master/processing/src/main/java/io/druid/query/BaseQuery.java#L125).
+    * `priority` `number`
+    * `bySegment` `boolean`
+    * `populateCache` `boolean`
+    * `useCache` `boolean`
+    * `finalize` `boolean`
 
 ---
 
@@ -313,6 +318,66 @@ Set `dataSource` field
 __Arguments__
 
 * dataSource `string` - Name of data source to query.
+
+---
+
+#### `Query` dimension(dimension, [outputName], [extractFn])
+
+Set DimensionSpec. 
+
+Depending on arguments length creates default or extraction dimension spec.
+
+If one or two arguments are specified DefaultDimensionSpec is created.
+
+If all arguments are specified ExtractionDimensionSpec is created.
+
+__Arguments__
+
+* dimension `string` - Dimension to operate on.
+* outputName `string` - Dimension output name.
+* extractFn `object` - Extraction function spec created by `Query.extractionFunction()` or raw JavaScript object.
+
+---
+
+#### `Query` dimensions(list...)
+
+Set dimensions.
+
+__Arguments__
+
+* list `string[] | ...string` - Dimensions list.
+
+---
+
+#### `Query` filter(type, [args...])
+
+Set filter spec.
+
+__Arguments__
+
+* type `string` - Filter type: `and`, `javascript`, `not`, `or`, `regex`, `selector`.
+* args `...*` - Filter-specific arguments. They are described in `Filters` section.
+
+---
+
+#### `Query` granuality(value)
+
+Set granuality of query.
+
+__Arguments__
+
+* value `string | object` - Granuality as string or object.
+
+---
+
+
+#### `Query` queryType(type)
+
+Set type of query. This method should be used only if you're using `Query` base class. All the `Query` descendants have `queryType` field set automatically.
+
+__Arguments__
+
+* type `string` - Valid query type: `groupBy`, `search`, `segmentMetadata`, `timeBoundary`, `timeseries`, `topN`.
 
 ---
 
