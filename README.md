@@ -306,6 +306,36 @@ __Arguments__
 * name `string` - Aggregation output name.
 * aggregationArgs `...*` - Aggregation specific arguments. Read below about arguments in `Aggregations` section.
 
+__aggregationsArgs__ depending on aggregation type:
+
+* `cardinality`:
+    * `fieldNames` `string[]` - Fields to compute cardinality over.
+    * `byRow` `boolean` If we should compute cardinality over distinct combinations. Default: `false`.
+
+* `count`:
+    * Nothing here :-)
+
+* `doubleSum`:
+    * `fieldName` `string` - Name of the metric column to sum over.
+
+* `hyperUnique`:
+    * `fieldName` `string` - Dimension name.
+
+* `javascript`:
+    * `fieldNames` `string[]` - Names of fields which are passed to aggregate function.
+    * `aggregateFn` `string | Function` - Aggregation function.
+    * `combineFn` `string | Function` - Combines partials.
+    * `resetFn` `string | Function` - Initialization function.
+
+* `longSum`:
+    * `fieldName` `string` - Name of the metric column to sum over.
+
+* `max`:
+    *  `fieldName` `string` - Name of the metric column.
+
+* `min`:
+    *  `fieldName` `string` - Name of the metric column.
+
 ---
 
 #### `Query` aggregations(list...)
