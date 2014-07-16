@@ -392,6 +392,49 @@ __Arguments__
 
 ---
 
+#### `Query` limitSpec(type, limit, orderByColumns)
+
+Set LimitSpec field.
+
+__Arguments__
+
+* type `string` - LimitSpec type.
+* limit `number` - Limit of records returned.
+* orderByColumns `Array<*>` - OrderBy specs array. Specs can be strings or results of `Query.orderBy()`
+
+---
+
+#### `Query` merge(value)
+
+Set `merge` field value.
+
+__Arguments__
+
+* value `boolean` - Merge all individual segment metadata results into a single result.
+
+---
+
+#### `Query` metric(type, [args...])
+
+Set `TopNMetricSpec` identified by `metric` value.
+
+__Arguments__
+
+* type `string` - Spec type: `alphaNumeric`, `lexicographic`, `numeric`.
+* args `...*` - Arguments specific to spec type. They are described in `Metric` section.
+
+---
+
+#### `Query` query([type], value...)
+
+Set SearchQuery spec (`query` field).
+
+__Arguments__
+
+* type `string` - SearchQuery type: `insensitive_contains`, `fragment`. Default is `fragment`.
+* value `string | string[] | ...string` - Value(s) to match. If `type` is `fragment` value is treated as array. If type is `insensitive_contains` value is used as `string`.
+
+---
 
 #### `Query` queryType(type)
 
@@ -400,6 +443,46 @@ Set type of query. This method should be used only if you're using `Query` base 
 __Arguments__
 
 * type `string` - Valid query type: `groupBy`, `search`, `segmentMetadata`, `timeBoundary`, `timeseries`, `topN`.
+
+---
+
+#### `Query` searchDimensions(list...)
+
+Set `searchDimensions` field.
+
+__Arguments__
+
+* list `string[] | ...string` - Dimensions list.
+
+---
+
+#### `Query` sort(type)
+
+Set `sort` field.
+
+__Arguments__
+
+* type `string` - Sorting type: `lexicographic` or `strlen`.
+
+---
+
+#### `Query` threshold(value)
+
+Set `threshold` value.
+
+__Arguments__
+
+* value `number` - Threshold number value.
+
+---
+
+#### `Query` toInclude(value)
+
+Set `toInclude` field - columns which should be returned in result.
+
+__Arguments__
+
+* value `string | string[]` - `all`, `none` or array of column names.
 
 ---
 
