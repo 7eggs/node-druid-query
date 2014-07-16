@@ -219,7 +219,7 @@ __Arguments__
 
 ### Query field setters
 
-#### `static` `object` aggregation(type, name, [aggregationArgs...])
+#### `static` `object` aggregation(type, name, [args...])
 
 Create aggregation spec.
 
@@ -227,7 +227,37 @@ __Arguments__
 
 * type `string` - Aggregation type: `cardinality`, `count`, `doubleSum`, `hyperUnique`, `javascript`, `longSum`, `max`, `min`.
 * name `string` - Aggregation output name.
-* aggregationArgs `...*` - Aggregation-specific arguments. Read below about arguments in `aggregation()` method description.
+* args `...*` - Aggregation-specific arguments.
+
+__args__ depending on aggregation type:
+
+* `cardinality`:
+    * `fieldNames` `string[]` - Fields to compute cardinality over.
+    * `byRow` `boolean` If we should compute cardinality over distinct combinations. Default: `false`.
+
+* `count`:
+    * Nothing here :-)
+
+* `doubleSum`:
+    * `fieldName` `string` - Name of the metric column to sum over.
+
+* `hyperUnique`:
+    * `fieldName` `string` - Dimension name.
+
+* `javascript`:
+    * `fieldNames` `string[]` - Names of fields which are passed to aggregate function.
+    * `aggregateFn` `string | function` - Aggregation function.
+    * `combineFn` `string | function` - Combines partials.
+    * `resetFn` `string | function` - Initialization function.
+
+* `longSum`:
+    * `fieldName` `string` - Name of the metric column to sum over.
+
+* `max`:
+    *  `fieldName` `string` - Name of the metric column.
+
+* `min`:
+    *  `fieldName` `string` - Name of the metric column.
 
 ---
 
@@ -356,37 +386,7 @@ __Arguments__
 
 * type `string` - Aggregation type: `cardinality`, `count`, `doubleSum`, `hyperUnique`, `javascript`, `longSum`, `max`, `min`.
 * name `string` - Aggregation output name.
-* aggregationArgs `...*` - Aggregation specific arguments. Read below about arguments in `Aggregations` section.
-
-__aggregationsArgs__ depending on aggregation type:
-
-* `cardinality`:
-    * `fieldNames` `string[]` - Fields to compute cardinality over.
-    * `byRow` `boolean` If we should compute cardinality over distinct combinations. Default: `false`.
-
-* `count`:
-    * Nothing here :-)
-
-* `doubleSum`:
-    * `fieldName` `string` - Name of the metric column to sum over.
-
-* `hyperUnique`:
-    * `fieldName` `string` - Dimension name.
-
-* `javascript`:
-    * `fieldNames` `string[]` - Names of fields which are passed to aggregate function.
-    * `aggregateFn` `string | function` - Aggregation function.
-    * `combineFn` `string | function` - Combines partials.
-    * `resetFn` `string | function` - Initialization function.
-
-* `longSum`:
-    * `fieldName` `string` - Name of the metric column to sum over.
-
-* `max`:
-    *  `fieldName` `string` - Name of the metric column.
-
-* `min`:
-    *  `fieldName` `string` - Name of the metric column.
+* aggregationArgs `...*` - Aggregation specific arguments. Read above about arguments in `Query.aggregation()` description.
 
 ---
 
