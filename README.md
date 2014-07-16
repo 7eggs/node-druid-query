@@ -168,6 +168,49 @@ client
   .exec(/* result callback */)
 ```
 
+API
+---
+
+### Druid
+
+#### Druid(url)
+
+Create client instance.
+
+__Arguments__
+
+* url `String` - Druid node URL.
+
+
+#### `static` fromZooKeeper(connectionString, discoveryPath, [options], callback)
+
+Lookup Druid services via ZooKeeper using [node-zookeper-client](https://www.npmjs.org/package/node-zookeeper-client) and choose random node. For choosed node `Druid` instance is created.
+
+__Arguments__
+
+* connectionString `string` - ZooKeeper connection string.
+* discoveryPath `string` - service discovery path.
+* options `object` - Lookup options. We have only one option currently available:
+    * `preferSSL` - Use SSL port of Druid node if available. Default: `false`.
+
+#### dataSources(callback)
+
+Get list of dataSources.
+
+__Arguments__
+
+* callback(err, dataSources) `function` - The callback function.
+
+#### exec(query, callback)
+
+Execute query.
+
+__Arguments__
+
+* query `Query` - Query object.
+* callback(err, result) `function` - The callback function.
+
+### Query methods
 TODO
 ----
 * Tests :-)
