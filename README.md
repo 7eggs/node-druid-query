@@ -249,7 +249,7 @@ __Arguments__
 
 * type `string` - Post-aggregation type: `arithmetic`, `constant`, `fieldAccess`, `hyperUniqueCardinality`, `javascript`.
 * name `string` - Post-aggregation output name.
-* args `...*` - Post-aggregation specific arguments. Read about arguments in `Aggregations` section.
+* args `...*` - Post-aggregation specific arguments. Read about arguments in `Post-Aggregations` section.
 
 ---
 
