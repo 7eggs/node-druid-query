@@ -27,7 +27,7 @@
     "mocha":     "^1.20.1"
   },
   "scripts":         {
-    "test": "./node_modules/.bin/mocha --recursive spec/"
+    "test": "./node_modules/.bin/mocha --recursive -R spec spec/"
   },
   "author":          "Alexander Makarenko <estliberitas@gmail.com>",
   "license":         "MIT"
