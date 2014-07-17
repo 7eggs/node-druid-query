@@ -1,0 +1,22 @@
+{
+  "name": "druid-query",
+  "description": "Simple querying for Druid",
+  "keywords": [
+    "druid",
+    "query",
+    "http"
+  ],
+  "version": "0.0.1",
+  "main": "lib/index.js",
+  "dependencies": {
+    "custom-error-generator": "^7.0.0",
+    "lodash": "^2.4.1",
+    "moment": "^2.7.0",
+    "node-zookeeper-client": "^0.2.1",
+    "request": "^2.37.0"
+  },
+  "author": "Alexander Makarenko <estliberitas@gmail.com>",
+  "devDependencies": {
+    "jsdoc": "^3.3.0-alpha9"
+  }
+}
