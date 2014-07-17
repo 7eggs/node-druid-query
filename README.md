@@ -1,6 +1,8 @@
 node-druid-query
 ================
 
+[![Build Status](https://travis-ci.org/7eggs/node-druid-query.svg)](https://travis-ci.org/7eggs/node-druid-query)
+
 Simple querying for Druid (http://druid.io) in Node.js.
 
 Installation
