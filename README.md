@@ -24,8 +24,8 @@ q1
   .aggregation('doubleSum', 'e', 'events')
   .aggregation('doubleSum', 'randomNumberSum', 'outColumn')
   .postAggregation('arithmetic', 'avg_random', '/', [
-    Druid.postAggregation('fieldAccess', null, 'randomNumberSum')
-    Druid.postAggregation('fieldAccess', null, 'rows')
+    Query.postAggregation('fieldAccess', null, 'randomNumberSum')
+    Query.postAggregation('fieldAccess', null, 'rows')
   ])
   .intervals(Date.UTC(2012, 9, 1), Date.UTC(2020, 0, 1))
 
@@ -716,4 +716,10 @@ __Arguments__
 
 TODO
 ----
+* Better ZooKeeper integration (watchable services, etc.)
 * Tests :-)
+
+LICENSE
+-------
+
+MIT
