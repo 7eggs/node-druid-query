@@ -1,0 +1,22 @@
+'use strict'
+
+var Query = require('../../').Query
+  , util = require('util')
+
+
+/**
+ * Base query class
+ *
+ * @constructor
+ */
+function TestQuery(client, rawQuery) {
+  Query.call(this, client, rawQuery)
+}
+util.inherits(TestQuery, Query)
+
+
+Query.addFields(TestQuery, ['aggregations', 'context', 'dimension', 'dimensions', 'filter', 'granuality', 'having', 'intervals', 'limitSpec', 'merge', 'metric', 'postAggregations', 'query', 'searchDimensions', 'sort', 'threshold', 'toInclude'])
+Query.addStatic(TestQuery, ['aggregations', 'extractionFunction', 'filter', 'having', 'orderBy', 'postAggregations', 'query'])
+
+
+module.exports = TestQuery
