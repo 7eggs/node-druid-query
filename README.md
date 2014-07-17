@@ -217,7 +217,33 @@ __Arguments__
 
 ---
 
-### Query methods
+#### `GroupByQuery` groupBy([rawQuery])
+#### `SearchQuery` search([rawQuery)
+#### `SegmentMetadataQuery` segmentMetadata([rawQuery)
+#### `TimeBoundaryQuery` timeBoundary([rawQuery)
+#### `TimeseriesQuery` timeseries([rawQuery)
+#### `TopNQuery` topN([rawQuery)
+
+Create `Query` instance and attach it to client.
+
+__Arguments__
+
+* rawQuery `object` - passed as second argument to `Query` constructor.
+
+---
+
+### Query (Druid.Query)
+
+#### Query(client, [rawQuery])
+
+Create query instance
+
+__Arguments__
+
+* client `Druid` - Client instance.
+* rawQuery `object` - Raw query data (so you can call `Query#exec(callback)` or `Druid#exec(query, callbac)` right after creating `Query` object. Keep in mind that if constructor is not base `Query` class (e.g. `GroupByQuery`) `queryType` property is first removed from `rawQuery` object to prevent errors.
+
+---
 
 #### void exec(callback)
 
