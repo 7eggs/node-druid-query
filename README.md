@@ -183,7 +183,7 @@ __Arguments__
 
 ---
 
-#### `static` fromZooKeeper(connectionString, discoveryPath, [options], callback)
+#### `static` void fromZooKeeper(connectionString, discoveryPath, [options], callback)
 
 Lookup Druid services via ZooKeeper using [node-zookeper-client](https://www.npmjs.org/package/node-zookeeper-client) and choose random node. For choosed node `Druid` instance is created.
 
@@ -196,7 +196,7 @@ __Arguments__
 
 ---
 
-#### dataSources(callback)
+#### void dataSources(callback)
 
 Get list of dataSources.
 
@@ -206,7 +206,7 @@ __Arguments__
 
 ---
 
-#### exec(query, callback)
+#### void exec(query, callback)
 
 Execute query.
 
@@ -219,7 +219,7 @@ __Arguments__
 
 ### Query methods
 
-#### exec(callback)
+#### void exec(callback)
 
 Execute query (only if it's attached to client e.g. created by some client instance).
 
