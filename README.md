@@ -571,14 +571,19 @@ __args__ depending on `type` value:
 
 ---
 
-#### `Query` intervals(start, end)
+#### `Query` intervals([start], [end], [intervals...])
 
 Set intervals.
+
+Use two date arguments if you specify one interval (`start` and `end`).
+
+In other cases use array arguments: each one will represent different interval (`intervals...`).
 
 __Arguments__
 
 * start `number | string | Date` - Interval start.
 * end `number | string | Date` - Interval end.
+* intervals `...array` - Intervals list.
 
 ---
 
