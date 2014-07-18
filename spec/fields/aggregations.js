@@ -7,7 +7,7 @@ var noop = function() {
 }
 
 
-describe('Query (aggregations)', function() {
+describe('Query', function() {
   describe('.aggregation()', function() {
     it('should create spec', function() {
       var spec = Query.aggregation('count', 'output')

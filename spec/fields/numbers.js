@@ -4,7 +4,7 @@ var expect = require('expect.js')
   , Query = require('./query')
 
 
-describe('Query (numbers)', function() {
+describe('Query', function() {
   var query
 
   beforeEach(function() {
