@@ -35,7 +35,7 @@ describe('Query', function() {
 
     it('should throw error when can\'t parse number', function() {
       expect(function() {
-        query.threshold('NaN').toJSON()
+        query.threshold('NaN')
       }).to.throwException()
     })
   })
