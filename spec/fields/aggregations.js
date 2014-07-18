@@ -7,8 +7,8 @@ var noop = function() {
 }
 
 
-describe('Aggregations', function() {
-  describe('Query.aggregation()', function() {
+describe('Query (aggregations)', function() {
+  describe('.aggregation()', function() {
     it('should create spec', function() {
       var spec = Query.aggregation('count', 'output')
 
@@ -36,25 +36,7 @@ describe('Aggregations', function() {
     })
   })
 
-  describe('Query.aggregations()', function() {
-    it('should create specs using array argument', function() {
-      var specs = Query.aggregations([
-        {type: 'count', name: 'output'}
-      ])
-
-      expect(specs).to.be.an(Array)
-      expect(specs).to.have.length(1)
-    })
-
-    it('should create specs using each argument as spec', function() {
-      var specs = Query.aggregations({type: 'count', name: 'output'}, {type: 'count', name: 'output'})
-
-      expect(specs).to.be.an(Array)
-      expect(specs).to.have.length(2)
-    })
-  })
-
-  describe('Query#aggregation()', function() {
+  describe('#aggregation()', function() {
     var query
 
     beforeEach(function() {
@@ -80,33 +62,10 @@ describe('Aggregations', function() {
       expect(raw.aggregations[0].name).to.be('output')
     })
   })
+})
 
-  describe('Query#aggregations()', function() {
-    var query
 
-    beforeEach(function() {
-      query = new Query()
-    })
-
-    it('should set specs using array argument', function() {
-      query.aggregations([
-        {type: 'count', name: 'output'}
-      ])
-      var raw = query.toJSON()
-
-      expect(raw.aggregations).to.be.an(Array)
-      expect(raw.aggregations).to.have.length(1)
-    })
-
-    it('should set specs using each argument as spec', function() {
-      query.aggregations({type: 'count', name: 'output'}, {type: 'count', name: 'output'})
-      var raw = query.toJSON()
-
-      expect(raw.aggregations).to.be.an(Array)
-      expect(raw.aggregations).to.have.length(2)
-    })
-  })
-
+describe('Aggregations', function() {
   describe('count', function() {
     it('should create spec', function() {
       var spec = Query.aggregation('count', 'count_field')
