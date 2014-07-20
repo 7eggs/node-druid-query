@@ -7,8 +7,8 @@ var expect = require('expect.js')
 describe('DimExtractionFn (Query.extractionFunction)', function() {
   it('show throw error if bad DimExtractionFn type is specified', function() {
     expect(function() {
-        DimExtractionFn('bad_type')
-      }).to.throwException()
+      DimExtractionFn('bad_type')
+    }).to.throwException()
   })
 
   describe('RegexDimExtractionFn', function() {
@@ -42,13 +42,13 @@ describe('DimExtractionFn (Query.extractionFunction)', function() {
   describe('SearchQuerySpecDimExtractionFn', function() {
     it('should create spec with raw SearchQuerySpec object', function() {
       var spec = DimExtractionFn('searchQuery', {type: 'insensitive_contains', value: 'abc'})
-      
+
       expect(spec).to.eql({type: 'searchQuery', query: {type: 'insensitive_contains', value: 'abc'}})
     })
 
     it('should create spec using Query.query()', function() {
       var spec = DimExtractionFn('searchQuery', 'insensitive_contains', 'abc')
-      
+
       expect(spec).to.eql({type: 'searchQuery', query: {type: 'insensitive_contains', value: 'abc'}})
     })
 
@@ -68,7 +68,7 @@ describe('DimExtractionFn (Query.extractionFunction)', function() {
   describe('TimeDimExtractionFn', function() {
     it('should create spec', function() {
       var spec = DimExtractionFn('time', 'yyyy.MM.dd h:mm a', 'h:mm a')
-      
+
       expect(spec).to.eql({type: 'time', timeFormat: 'yyyy.MM.dd h:mm a', resultFormat: 'h:mm a'})
     })
 

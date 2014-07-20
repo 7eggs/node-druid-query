@@ -37,7 +37,7 @@ describe('Query', function() {
         type:   'and',
         fields: [
           { type: 'selector', dimension: 'sample_dimension1', value: 'sample_value1' },
-          { type: 'or', 
+          { type:   'or',
             fields: [
               { type: 'selector', dimension: 'sample_dimension2', value: 'sample_value2' },
               { type: 'selector', dimension: 'sample_dimension3', value: 'sample_value3' }

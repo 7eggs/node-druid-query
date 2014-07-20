@@ -13,9 +13,13 @@ describe('Query', function() {
 
   describe('.aggregations()', function() {
     it('should create array using array argument', function() {
-      var specs = Query.aggregations([{type: 'count', name: 'output'}])
+      var specs = Query.aggregations([
+        {type: 'count', name: 'output'}
+      ])
 
-      expect(specs).to.eql([{type: 'count', name: 'output'}])
+      expect(specs).to.eql([
+        {type: 'count', name: 'output'}
+      ])
       expect(specs).to.be.an(Array)
       expect(specs).to.have.length(1)
     })
@@ -23,7 +27,10 @@ describe('Query', function() {
     it('should create array using each argument as spec', function() {
       var specs = Query.aggregations({type: 'count', name: 'output'}, {type: 'count', name: 'output'})
 
-      expect(specs).to.eql([{type: 'count', name: 'output'}, {type: 'count', name: 'output'}])
+      expect(specs).to.eql([
+        {type: 'count', name: 'output'},
+        {type: 'count', name: 'output'}
+      ])
       expect(specs).to.be.an(Array)
       expect(specs).to.have.length(2)
     })
@@ -31,9 +38,13 @@ describe('Query', function() {
 
   describe('#aggregations()', function() {
     it('should set value using array argument', function() {
-      var raw = query.aggregations([{type: 'count', name: 'output'}]).toJSON()
+      var raw = query.aggregations([
+        {type: 'count', name: 'output'}
+      ]).toJSON()
 
-      expect(raw.aggregations).to.eql([{type: 'count', name: 'output'}])
+      expect(raw.aggregations).to.eql([
+        {type: 'count', name: 'output'}
+      ])
       expect(raw.aggregations).to.be.an(Array)
       expect(raw.aggregations).to.have.length(1)
     })
@@ -41,7 +52,10 @@ describe('Query', function() {
     it('should set value using each argument as spec', function() {
       var raw = query.aggregations({type: 'count', name: 'output'}, {type: 'count', name: 'output'}).toJSON()
 
-      expect(raw.aggregations).to.eql([{type: 'count', name: 'output'}, {type: 'count', name: 'output'}])
+      expect(raw.aggregations).to.eql([
+        {type: 'count', name: 'output'},
+        {type: 'count', name: 'output'}
+      ])
       expect(raw.aggregations).to.be.an(Array)
       expect(raw.aggregations).to.have.length(2)
     })
