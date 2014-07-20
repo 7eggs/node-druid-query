@@ -63,8 +63,8 @@ describe('Filters', function() {
       ])
 
       expect(spec).to.eql({
-        type:      'and',
-        fields:    [
+        type:   'and',
+        fields: [
           {type: 'selector', dimension: 'dim1', value: 'value1'},
           {type: 'selector', dimension: 'dim2', value: 'value2'}
         ]
@@ -78,8 +78,8 @@ describe('Filters', function() {
       )
 
       expect(spec).to.eql({
-        type:      'and',
-        fields:    [
+        type:   'and',
+        fields: [
           {type: 'selector', dimension: 'dim3', value: 'value3'},
           {type: 'selector', dimension: 'dim4', value: 'value4'}
         ]
@@ -101,8 +101,8 @@ describe('Filters', function() {
       ])
 
       expect(spec).to.eql({
-        type:      'or',
-        fields:    [
+        type:   'or',
+        fields: [
           {type: 'selector', dimension: 'dim1', value: 'value1'},
           {type: 'selector', dimension: 'dim2', value: 'value2'}
         ]
@@ -116,8 +116,8 @@ describe('Filters', function() {
       )
 
       expect(spec).to.eql({
-        type:      'or',
-        fields:    [
+        type:   'or',
+        fields: [
           {type: 'selector', dimension: 'dim3', value: 'value3'},
           {type: 'selector', dimension: 'dim4', value: 'value4'}
         ]
@@ -136,8 +136,8 @@ describe('Filters', function() {
       var spec = Query.filter('not', Query.filter('selector', 'dim1', 'value1'))
 
       expect(spec).to.eql({
-        type:      'not',
-        field:     {
+        type:  'not',
+        field: {
           type:      'selector',
           dimension: 'dim1',
           value:     'value1'
@@ -149,8 +149,8 @@ describe('Filters', function() {
       var spec = Query.filter('not', 'regex', 'dimension', 'ab*')
 
       expect(spec).to.eql({
-        type:      'not',
-        field:     {
+        type:  'not',
+        field: {
           type:      'regex',
           dimension: 'dimension',
           pattern:   'ab*'

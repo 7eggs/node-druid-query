@@ -16,9 +16,9 @@ describe('Query', function() {
       var spec = Query.filter('selector', 'dim', 'value')
 
       expect(spec).to.eql({
-        'type':      'selector',
-        'dimension': 'dim',
-        'value':     'value'
+        type:      'selector',
+        dimension: 'dim',
+        value:     'value'
       })
     })
   })
@@ -34,13 +34,13 @@ describe('Query', function() {
       ]).toJSON()
 
       expect(raw.filter).to.eql({
-        'type':   'and',
-        'fields': [
-          { 'type': 'selector', 'dimension': 'sample_dimension1', 'value': 'sample_value1' },
-          { 'type': 'or', 
-            'fields': [
-              { 'type': 'selector', 'dimension': 'sample_dimension2', 'value': 'sample_value2' },
-              { 'type': 'selector', 'dimension': 'sample_dimension3', 'value': 'sample_value3' }
+        type:   'and',
+        fields: [
+          { type: 'selector', dimension: 'sample_dimension1', value: 'sample_value1' },
+          { type: 'or', 
+            fields: [
+              { type: 'selector', dimension: 'sample_dimension2', value: 'sample_value2' },
+              { type: 'selector', dimension: 'sample_dimension3', value: 'sample_value3' }
             ]
           }
         ]
