@@ -158,7 +158,7 @@ describe('Filters', function() {
       })
     })
 
-    it('should throw error if filters is not specified', function() {
+    it('should throw error if filter is not specified', function() {
       expect(function() {
         query.filter('not')
       }).to.throwException()
