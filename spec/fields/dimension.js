@@ -27,15 +27,28 @@ describe('Query', function() {
     })
 
     it('should create ExtractionDimensionSpec', function() {
-      var raw = query.dimension('dim', null, {type: 'regex', expr: 'abc'}).toJSON()
+      var raw = query.dimension('dim', {type: 'regex', expr: 'abc'}).toJSON()
 
       expect(raw.dimension).to.be.a('object')
-      expect(raw.dimension).to.eql({type: 'extraction', dimension: 'dim', outputName: null, dimExtractionFn: {type: 'regex', expr: 'abc'}})
+      expect(raw.dimension).to.eql({type: 'extraction', dimension: 'dim', dimExtractionFn: {type: 'regex', expr: 'abc'}})
     })
 
-    it('should throw error if priority is not int', function() {
+    it('should create ExtractionDimensionSpec with outputName', function() {
+      var raw = query.dimension('dim', 'output', {type: 'regex', expr: 'abc'}).toJSON()
+
+      expect(raw.dimension).to.be.a('object')
+      expect(raw.dimension).to.eql({type: 'extraction', dimension: 'dim', outputName: 'output', dimExtractionFn: {type: 'regex', expr: 'abc'}})
+    })
+
+    it('should throw error if dimension is not set', function() {
       expect(function() {
         query.dimension()
+      }).to.throwException()
+    })
+
+    it('should throw error if arguments number is invalid', function() {
+      expect(function() {
+        query.dimension('a', 'b', 'c', 'd')
       }).to.throwException()
     })
   })
