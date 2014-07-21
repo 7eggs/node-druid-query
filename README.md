@@ -719,7 +719,7 @@ __Arguments__
 TODO
 ----
 * Better ZooKeeper integration (watchable services, etc.)
-* Tests :-)
+* More tests
 
 LICENSE
 -------
