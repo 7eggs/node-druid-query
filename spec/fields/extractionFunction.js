@@ -5,6 +5,15 @@ var expect = require('expect.js')
 
 
 describe('DimExtractionFn (Query.extractionFunction)', function() {
+  it('show create spec using raw object', function() {
+    var spec = DimExtractionFn({type: 'regex', expr: 'ab*'})
+
+    expect(spec).to.eql({
+      type: 'regex',
+      expr: 'ab*'
+    })
+  })
+
   it('show throw error if bad DimExtractionFn type is specified', function() {
     expect(function() {
       DimExtractionFn('bad_type')

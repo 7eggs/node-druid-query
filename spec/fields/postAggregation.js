@@ -23,7 +23,7 @@ describe('Query', function() {
       })
     })
 
-    it('should create spec from raw spec', function() {
+    it('should create spec using raw object', function() {
       var spec = Query.postAggregation({
         type:      'fieldAccess',
         fieldName: 'aggregator3'

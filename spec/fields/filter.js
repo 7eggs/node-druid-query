@@ -21,6 +21,21 @@ describe('Query', function() {
         value:     'value'
       })
     })
+    it('should create filter using raw object', function() {
+      var spec = Query.filter({type: 'selector', dimension: 'dim', value: 'value'})
+
+      expect(spec).to.eql({
+        type:      'selector',
+        dimension: 'dim',
+        value:     'value'
+      })
+    })
+
+    it('should throw error if bad filter type specified', function() {
+      expect(function() {
+        Query.filter('bad_type')
+      }).to.throwException()
+    })
   })
 
   describe('#filter()', function() {
@@ -45,12 +60,6 @@ describe('Query', function() {
           }
         ]
       })
-    })
-
-    it('should throw error if bad filter type specified', function() {
-      expect(function() {
-        query.filter('bad_type')
-      }).to.throwException()
     })
   })
 })

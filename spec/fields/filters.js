@@ -5,8 +5,6 @@ var expect = require('expect.js')
 
 
 describe('Filters', function() {
-  var query
-
   describe('Selector', function() {
     it('should create filter', function() {
       var spec = Query.filter('selector', 'dim', 'value')
@@ -20,13 +18,13 @@ describe('Filters', function() {
 
     it('should throw error if dimension is not specified', function() {
       expect(function() {
-        query.filter('selector', null, 'value')
+        Query.filter('selector', null, 'value')
       }).to.throwException()
     })
 
     it('should throw error if value is not specified', function() {
       expect(function() {
-        query.filter('selector', 'dimension')
+        Query.filter('selector', 'dimension')
       }).to.throwException()
     })
   })
@@ -44,13 +42,13 @@ describe('Filters', function() {
 
     it('should throw error if dimension is not specified', function() {
       expect(function() {
-        query.filter('regex', null, 'ab*')
+        Query.filter('regex', null, 'ab*')
       }).to.throwException()
     })
 
     it('should throw error if pattern is not specified', function() {
       expect(function() {
-        query.filter('regex', 'dimension')
+        Query.filter('regex', 'dimension')
       }).to.throwException()
     })
   })
@@ -88,7 +86,7 @@ describe('Filters', function() {
 
     it('should throw error if no filters specified', function() {
       expect(function() {
-        query.filter('and')
+        Query.filter('and')
       }).to.throwException()
     })
   })
@@ -126,7 +124,7 @@ describe('Filters', function() {
 
     it('should throw error if no filters specified', function() {
       expect(function() {
-        query.filter('and')
+        Query.filter('and')
       }).to.throwException()
     })
   })
@@ -160,7 +158,7 @@ describe('Filters', function() {
 
     it('should throw error if filter is not specified', function() {
       expect(function() {
-        query.filter('not')
+        Query.filter('not')
       }).to.throwException()
     })
   })
@@ -178,13 +176,13 @@ describe('Filters', function() {
 
     it('should throw error if dimension is not specified', function() {
       expect(function() {
-        query.filter('javascript', null, function(value) { return value === 'event' })
+        Query.filter('javascript', null, function(value) { return value === 'event' })
       }).to.throwException()
     })
 
     it('should throw error if function is not specified', function() {
       expect(function() {
-        query.filter('javascript', 'dimension', null)
+        Query.filter('javascript', 'dimension', null)
       }).to.throwException()
     })
   })

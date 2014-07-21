@@ -21,6 +21,22 @@ describe('Query', function() {
         value:       100500
       })
     })
+
+    it('should create filter using raw object', function() {
+      var spec = Query.having({type: 'equalTo', aggregation: 'number', value: 100500})
+
+      expect(spec).to.eql({
+        type:        'equalTo',
+        aggregation: 'number',
+        value:       100500
+      })
+    })
+
+    it('should throw error if bad filter type specified', function() {
+      expect(function() {
+        Query.having('bad_type')
+      }).to.throwException()
+    })
   })
 
   describe('#having()', function() {
@@ -32,12 +48,6 @@ describe('Query', function() {
         aggregation: 'number',
         value:       100500
       })
-    })
-
-    it('should throw error if bad filter type specified', function() {
-      expect(function() {
-        query.having('bad_type')
-      }).to.throwException()
     })
   })
 })

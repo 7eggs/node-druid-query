@@ -15,7 +15,7 @@ describe('Query', function() {
     it('should create empty object if nothing specified', function() {
       var raw = query.context().toJSON()
 
-      expect(raw.context).to.be.empty([])
+      expect(raw.context).to.be.empty()
     })
 
     it('should create spec', function() {

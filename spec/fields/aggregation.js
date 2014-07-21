@@ -13,7 +13,7 @@ describe('Query', function() {
       expect(spec.name).to.be('output')
     })
 
-    it('should create spec from raw spec', function() {
+    it('should create spec using raw object', function() {
       var spec = Query.aggregation({type: 'count', name: 'output'})
 
       expect(spec.type).to.be('count')

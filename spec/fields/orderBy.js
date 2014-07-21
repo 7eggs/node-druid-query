@@ -5,8 +5,6 @@ var expect = require('expect.js')
 
 
 describe('Query', function() {
-  var query
-
   describe('.orderBy()', function() {
     it('should create spec', function() {
       var spec = Query.orderBy('dimension1', 'descending')
@@ -22,13 +20,13 @@ describe('Query', function() {
 
     it('should throw error if dimension is not specified', function() {
       expect(function() {
-        query.orderBy(null, 'foobar')
+        Query.orderBy(null, 'foobar')
       }).to.throwException()
     })
 
     it('should throw error if direction is invalid', function() {
       expect(function() {
-        query.orderBy('dimension3', 'foobar')
+        Query.orderBy('dimension3', 'foobar')
       }).to.throwException()
     })
   })
