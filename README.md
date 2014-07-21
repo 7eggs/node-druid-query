@@ -271,7 +271,7 @@ Create aggregation spec.
 
 __Arguments__
 
-* type `string` - Aggregation type: `cardinality`, `count`, `doubleSum`, `hyperUnique`, `javascript`, `longSum`, `max`, `min`.
+* type `string | object` - Aggregation type: `cardinality`, `count`, `doubleSum`, `hyperUnique`, `javascript`, `longSum`, `max`, `min`. Also you can specify aggregation as object in this argument.
 * name `string` - Aggregation output name.
 * args `...*` - Aggregation-specific arguments.
 
@@ -323,7 +323,7 @@ Create `DimExtractionFn` spec.
 
 __Arguments__
 
-* type `string` - Spec type: `javascript`, `partial`, `regex`, `searchQuery`, `time`.
+* type `string | object` - Spec type: `javascript`, `partial`, `regex`, `searchQuery`, `time` - or DimExtractionFn spec object.
 * args `...*` - Function-specific arguments.
 
 __args__ depending on extraction function `type`:
@@ -352,7 +352,7 @@ Create filter spec.
 
 __Arguments__
 
-* type `string` - Filter type: `and`, `javascript`, `not`, `or`, `regex`, `selector`.
+* type `string | object` - Filter type: `and`, `javascript`, `not`, `or`, `regex`, `selector` - or raw filter object.
 * args `...*` - Filter-specific arguments. Described below.
 
 __args__ depending on filter `type`:
@@ -365,7 +365,7 @@ __args__ depending on filter `type`:
     * `fn` `string | function` - Function to apply (should return boolean value).
 
 * `not`:
-    * `filter` `string` - Filter to oppose.
+    * `filter` `string | ...*` - If first argument is object we use it as filter spec. Otherwise rest arguments are passed again to `Query.filter()`.
 
 * `or`:
     * `filters` `object[] | ...object` - List of filters for `OR`.
@@ -397,7 +397,7 @@ Create post-aggregation spec.
 
 __Arguments__
 
-* type `string` - Post-aggregation type: `arithmetic`, `constant`, `fieldAccess`, `hyperUniqueCardinality`, `javascript`.
+* type `string | object` - Post-aggregation type: `arithmetic`, `constant`, `fieldAccess`, `hyperUniqueCardinality`, `javascript`. Or it can be ready-to-use post-aggregation object (no need in other arguments in this case, of course).
 * name `string` - Post-aggregation output name.
 * args `...*` - Post-aggregation specific arguments. Read about arguments below.
 
@@ -411,10 +411,10 @@ __args__ depending on `type` value:
     * `value` `*` - Constant value.
 
 * `fieldAccess`:
-    * `fieldName` `string` - Name of aggregator field.
+    * `fieldName` `string` - Name of aggregator field. If not specified `postAggregation()` second argument (`name`) is used as `fieldName` instead.
 
 * `hyperUniqueCardinality`:
-    * `fieldName` `string` - Name of hyperUnique aggregator.
+    * `fieldName` `string` - Name of hyperUnique aggregator. If not specified `postAggregation()` second argument (`name`) is used as `fieldName` instead.
 
 * `javascript`:
     * `fieldNames` `string[]` - List of aggregator names - passed as arguments to function.
@@ -432,14 +432,14 @@ __Arguments__
 
 ---
 
-#### `static` `object` query([type], value...)
+#### `static` `object` query(type, value...)
 
 Create SearchQuery spec.
 
 __Arguments__
 
-* type `string` - SearchQuery type: `insensitive_contains`, `fragment`. Default is `fragment`.
-* value `string | string[] | ...string` - Value(s) to match. If `type` is `fragment` value is treated as array. If type is `insensitive_contains` value is used as `string`.
+* type `string | object` - SearchQuery type: `insensitive_contains`, `fragment`. Or ready SearchQuerySpec object.
+* value `string | string[] | ...string` - Value(s) to match. If `type` is `fragment` value (or all the values) is treated as array. If type is `insensitive_contains` value is used as `string`.
 
 ---
 
@@ -449,7 +449,7 @@ Add aggregation spec to `aggregations`.
 
 __Arguments__
 
-* type `string` - Aggregation type: `cardinality`, `count`, `doubleSum`, `hyperUnique`, `javascript`, `longSum`, `max`, `min`.
+* type `string | object` - Aggregation type: `cardinality`, `count`, `doubleSum`, `hyperUnique`, `javascript`, `longSum`, `max`, `min`. Or aggregation spec as JS object.
 * name `string` - Aggregation output name.
 * args `...*` - Aggregation specific arguments. Read above about arguments in `Query.aggregation()` description.
 
@@ -496,9 +496,9 @@ Set DimensionSpec.
 
 Depending on arguments length creates default or extraction dimension spec.
 
-If one or two arguments are specified DefaultDimensionSpec is created.
+If second or third argument is object ExtractionDimensionSpec is created.
 
-If all arguments are specified ExtractionDimensionSpec is created.
+In other cases DefaultDimensionSpec is created.
 
 __Arguments__
 
@@ -524,18 +524,30 @@ Set filter spec.
 
 __Arguments__
 
-* type `string` - Filter type: `and`, `javascript`, `not`, `or`, `regex`, `selector`.
+* type `string | object` - Filter type: `and`, `javascript`, `not`, `or`, `regex`, `selector`. Otherwise whole filter object can be specified as first argument.
 * args `...*` - Filter-specific arguments. They are described in `Query.filter()` method description.
 
 ---
 
-#### `Query` granuality(value)
+#### `Query` granuality(type, [args...])
 
 Set granuality of query.
 
 __Arguments__
 
-* value `string | object` - Granuality as string or object.
+* value `string | object` - Granuality as string or object. If `value` is string it must be one of those: `all`, `none`, `minute`, `fifteen_minute`, `thirty_minute`, `hour`, `day` plus `duration` and `period` which mean granuality spec is created.
+* args `...*` - Specific arguments (in case if `value` is `period` or `duration`).
+
+__args__ depending on granuality `type` value:
+
+* `duration`:
+    * `duration` `string | number` - Duration value in ms.
+    * `origin` `string | number | Date` - Start time (optional).
+
+* `period`:
+    * `period` `string` - ISO-8601 duration format.
+    * `timeZone` `string` - Timezone. Default: UTC (optional).
+    * `origin` `string | number | Date` - Start time (optional).
 
 ---
 
@@ -545,7 +557,7 @@ Set `having` field.
 
 __Arguments__
 
-* type `string` - HavingSpec type: `and`, `equalTo`, `greaterThan`, `lessThan`, `not`, `or`.
+* type `string | object` - HavingSpec object or type: `and`, `equalTo`, `greaterThan`, `lessThan`, `not`, `or`.
 * args `...*` - Arguments specific to spec type.
 
 __args__ depending on `type` value:
@@ -554,19 +566,19 @@ __args__ depending on `type` value:
     * `specs` `object[] | ...object` - List of specs for `AND` operation.
 
 * `equalTo`:
-    * `metric` `string` - Metric name.
+    * `aggregation` `string` - Aggregation name.
     * `value` `*` - Value to match.
 
 * `greaterThan`:
-    * `metric` `string` - Metric name.
+    * `aggregation` `string` - Aggregation name.
     * `value` `*` - Value to compare.
 
 * `lessThan`:
-    * `metric` `string` - Metric name.
+    * `aggregation` `string` - Aggregation name.
     * `value` `*` - Value to compare.
 
 * `not`:
-    * `spec` `object` - HavingSpec to oppose.
+    * `spec` `object | ...*` - If first argument is object we use it as filter spec. Otherwise rest arguments are passed again to `Query.having()`.
 
 * `or`:
     * `specs` `object[] | ...object` - List of specs for `OR` operation.
@@ -595,9 +607,9 @@ Set LimitSpec field.
 
 __Arguments__
 
-* type `string` - LimitSpec type.
+* type `string | object` - raw LimitSpec object or LimitSpec type.
 * limit `number` - Limit of records returned.
-* orderByColumns `Array<*>` - OrderBy specs array. Specs can be strings or results of `Query.orderBy()`
+* orderByColumns `object[] | string[]` - OrderBy specs array. Specs can be strings or results of `Query.orderBy()`
 
 ---
 
@@ -617,16 +629,16 @@ Set `TopNMetricSpec` identified by `metric` value.
 
 __Arguments__
 
-* type `string` - Spec type: `alphaNumeric`, `lexicographic`, `numeric`.
+* type `string | object` - `TopNMetricSpec` object or spec type: `alphaNumeric`, `lexicographic`, `numeric`.
 * args `...*` - Arguments specific to spec type. They are described below.
 
 __args__ depending on `type` value:
 
 * `alphaNumeric`:
-    * `previousStop` `string` - The starting point of the lexicographic sort.
+    * `previousStop` `string` - The starting point of the lexicographic sort (optional).
 
 * `lexicographic`:
-    * `previousStop` `string` - The starting point of the alpha-numeric sort.
+    * `previousStop` `string` - The starting point of the alpha-numeric sort (optional).
 
 * `numeric`:
     * `metric` `string` - The actual metric field in which results will be sorted by.
@@ -639,7 +651,7 @@ Add post-aggregation spec to `postAggregations` array.
 
 __Arguments__
 
-* type `string` - Post-aggregation type: `arithmetic`, `constant`, `fieldAccess`, `hyperUniqueCardinality`, `javascript`.
+* type `string | object` - Post-aggregation type: `arithmetic`, `constant`, `fieldAccess`, `hyperUniqueCardinality`, `javascript`. It can be post-aggregation object itself.
 * name `string` - Post-aggregation output name.
 * args `...*` - Post-aggregation specific arguments. Read above about arguments in `Query.postAggregation()` method description.
 
@@ -661,7 +673,7 @@ Set SearchQuery spec (`query` field).
 
 __Arguments__
 
-* type `string` - SearchQuery type: `insensitive_contains`, `fragment`. Default is `fragment`.
+* type `string | object` - SearchQuery type: `insensitive_contains`, `fragment`. Or it can be `SearchQuerySpec` object.
 * value `string | string[] | ...string` - Value(s) to match. If `type` is `fragment` value is treated as array. If type is `insensitive_contains` value is used as `string`.
 
 ---
@@ -712,7 +724,7 @@ Set `toInclude` field - columns which should be returned in result.
 
 __Arguments__
 
-* value `string | string[]` - `all`, `none` or array of column names.
+* value `string | string[] | object` - `all`, `none` or array of column names (list) or `toInclude` raw spec data as object.
 
 ---
 
