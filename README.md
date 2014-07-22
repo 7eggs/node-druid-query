@@ -243,7 +243,7 @@ Create query instance
 __Arguments__
 
 * client `Druid` - Client instance.
-* rawQuery `object` - Raw query data (so you can call `Query#exec(callback)` or `Druid#exec(query, callbac)` right after creating `Query` object. Keep in mind that if constructor is not base `Query` class (e.g. `GroupByQuery`) `queryType` property is first removed from `rawQuery` object to prevent errors.
+* rawQuery `object` - Raw query data (so you can call `Query#exec(callback)` or `Druid#exec(query, callback)` right after creating `Query` object. Keep in mind that if constructor is not base `Query` class (e.g. `GroupByQuery`) `queryType` property is first removed from `rawQuery` object to prevent errors.
 
 ---
 
@@ -281,6 +281,8 @@ __Query.aggregation('cardinality', name, fieldNames, byRow)__
 * byRow `boolean` - If we should compute cardinality over distinct combinations. Default: `false`.
 
 __Query.aggregation('count', name)__
+
+* No arguments here
 
 __Query.aggregation('doubleSum', name, fieldName)__
 
@@ -362,28 +364,70 @@ __Arguments__
 * type `string | object` - Filter type: `and`, `javascript`, `not`, `or`, `regex`, `selector` - or raw filter object.
 * args `...*` - Filter-specific arguments. Described below.
 
-__args__ depending on filter `type`:
+__Query.filter('and', filters...)__
 
-* `and`:
-    * `filters` `object[] | ...object` - List of filters for `AND`.
+* filters `object[] | ...object` - List of filters for `AND`.
 
-* `javascript`:
-    * `dimension` `string` - Dimension to which filter is applied.
-    * `fn` `string | function` - Function to apply (should return boolean value).
+__Query.filter('javascript', dimension, fn)__
 
-* `not`:
-    * `filter` `string | ...*` - If first argument is object we use it as filter spec. Otherwise rest arguments are passed again to `Query.filter()`.
+* dimension `string` - Dimension to which filter is applied.
+* fn `string | function` - Function to apply (should return boolean value).
 
-* `or`:
-    * `filters` `object[] | ...object` - List of filters for `OR`.
+__Query.filter('not', filter...)__
 
-* `regex`:
-    * `dimension` `string` - Dimension to which filter is applied.
-    * `patter` `string` - Java regular expression.
+* filter `string | ...*` - If this argument is object we use it as filter spec. Otherwise all arguments are passed again to `Query.filter()`.
 
-* `selector`:
-    * `dimensions` `string` - Dimension to which filter is applied.
-    * `value` `*` - Value to match.
+__Query.filter('or', filters...)__
+
+* filters `object[] | ...object` - List of filters for `OR`.
+
+__Query.filter('regex', dimension, pattern)__
+
+* dimension `string` - Dimension to which filter is applied.
+* pattern `string` - Java regular expression.
+
+__Query.filter('selector', dimension, value)__
+
+* dimensions `string` - Dimension to which filter is applied.
+* value `*` - Value to match.
+
+---
+
+#### `static` `object` having(type, [args...])
+
+Create `having` spec.
+
+__Arguments__
+
+* type `string | object` - HavingSpec object or type: `and`, `equalTo`, `greaterThan`, `lessThan`, `not`, `or`.
+* args `...*` - Arguments specific to spec type.
+
+__Query.having('and', specs...)__
+
+* specs `object[] | ...object` - List of specs for `AND` operation.
+
+__Query.having('equalTo', aggregation, value)__
+
+* aggregation `string` - Aggregation name.
+* value `*` - Value to match.
+
+__Query.having('greaterThan', aggregation, value)__
+
+* aggregation `string` - Aggregation name.
+* value `*` - Value to compare.
+
+__Query.having('lessThan', aggregation, value)__
+
+* aggregation `string` - Aggregation name.
+* value `*` - Value to compare.
+
+__Query.having('not', spec...)__
+
+* spec `object | ...*` - If first argument is object we use it as filter spec. Otherwise all arguments are passed again to `Query.having()`.
+
+__Query.having('or', specs...)__
+
+* specs `object[] | ...object` - List of specs for `OR` operation.
 
 ---
 
@@ -408,24 +452,27 @@ __Arguments__
 * name `string` - Post-aggregation output name.
 * args `...*` - Post-aggregation specific arguments. Read about arguments below.
 
-__args__ depending on `type` value:
+__Query.postAggregation('arithmetic', name, op, fields)__
 
-* `arithmetic`:
-    * `op` `string` - Arithmetic operation: +, -, * or /.
-    * `fields` `object[] | ...object` - List of Post-Aggregation specs: raw objects or `Query.postAggregation()` calls.
+* op `string` - Arithmetic operation: +, -, * or /.
+* fields `object[] | ...object` - List of Post-Aggregation specs: raw objects or `Query.postAggregation()` calls.
 
-* `constant`:
-    * `value` `*` - Constant value.
+__Query.postAggregation('constant', name, value)__
 
-* `fieldAccess`:
-    * `fieldName` `string` - Name of aggregator field. If not specified `postAggregation()` second argument (`name`) is used as `fieldName` instead.
+* value `*` - Constant value.
 
-* `hyperUniqueCardinality`:
-    * `fieldName` `string` - Name of hyperUnique aggregator. If not specified `postAggregation()` second argument (`name`) is used as `fieldName` instead.
+__Query.postAggregation('fieldAccess', name, fieldName)__
 
-* `javascript`:
-    * `fieldNames` `string[]` - List of aggregator names - passed as arguments to function.
-    * `fn` `string | function` - Post-aggregator function.
+* fieldName `string` - Name of aggregator field. If not specified `postAggregation()` second argument (`name`) is used as `fieldName` instead.
+
+__Query.postAggregation('hyperUniqueCardinality', name, fieldName)__
+
+* fieldName `string` - Name of hyperUnique aggregator. If not specified `postAggregation()` second argument (`name`) is used as `fieldName` instead.
+
+__Query.postAggregation('javascript', name, fieldNames, fn)__
+
+* fieldNames `string[]` - List of aggregator names - passed as arguments to function.
+* fn `string | function` - Post-aggregator function.
 
 ---
 
@@ -542,19 +589,19 @@ Set granuality of query.
 
 __Arguments__
 
-* value `string | object` - Granuality as string or object. If `value` is string it must be one of those: `all`, `none`, `minute`, `fifteen_minute`, `thirty_minute`, `hour`, `day` plus `duration` and `period` which mean granuality spec is created.
+* value `string | object` - Granuality as string or object. If `value` is string it must be one of those: `all`, `none`, `minute`, `fifteen_minute`, `thirty_minute`, `hour`, `day` plus `duration` and `period` which mean granuality spec object is created.
 * args `...*` - Specific arguments (in case if `value` is `period` or `duration`).
 
-__args__ depending on granuality `type` value:
+__Query#granuality('duration', duration, [origin])__
 
-* `duration`:
-    * `duration` `string | number` - Duration value in ms.
-    * `origin` `string | number | Date` - Start time (optional).
+* duration `string | number` - Duration value in ms.
+* origin `string | number | Date` - Start time (optional).
 
-* `period`:
-    * `period` `string` - ISO-8601 duration format.
-    * `timeZone` `string` - Timezone. Default: UTC (optional).
-    * `origin` `string | number | Date` - Start time (optional).
+__Query#granuality('period', period, [timeZone], [origin])__
+
+* period `string` - ISO-8601 duration format.
+* timeZone `string` - Timezone. Default: UTC (optional).
+* origin `string | number | Date` - Start time (optional).
 
 ---
 
@@ -565,30 +612,7 @@ Set `having` field.
 __Arguments__
 
 * type `string | object` - HavingSpec object or type: `and`, `equalTo`, `greaterThan`, `lessThan`, `not`, `or`.
-* args `...*` - Arguments specific to spec type.
-
-__args__ depending on `type` value:
-
-* `and`:
-    * `specs` `object[] | ...object` - List of specs for `AND` operation.
-
-* `equalTo`:
-    * `aggregation` `string` - Aggregation name.
-    * `value` `*` - Value to match.
-
-* `greaterThan`:
-    * `aggregation` `string` - Aggregation name.
-    * `value` `*` - Value to compare.
-
-* `lessThan`:
-    * `aggregation` `string` - Aggregation name.
-    * `value` `*` - Value to compare.
-
-* `not`:
-    * `spec` `object | ...*` - If first argument is object we use it as filter spec. Otherwise rest arguments are passed again to `Query.having()`.
-
-* `or`:
-    * `specs` `object[] | ...object` - List of specs for `OR` operation.
+* args `...*` - Arguments specific to spec type. They are described in `Query.having()`.
 
 ---
 
@@ -639,16 +663,17 @@ __Arguments__
 * type `string | object` - `TopNMetricSpec` object or spec type: `alphaNumeric`, `lexicographic`, `numeric`.
 * args `...*` - Arguments specific to spec type. They are described below.
 
-__args__ depending on `type` value:
+__Query#metric('alphaNumeric', [previousStop])__
 
-* `alphaNumeric`:
-    * `previousStop` `string` - The starting point of the lexicographic sort (optional).
+* previousStop `string` - The starting point of the lexicographic sort (optional).
 
-* `lexicographic`:
-    * `previousStop` `string` - The starting point of the alpha-numeric sort (optional).
+__Query#metric('lexicographic', [previousStop])__
 
-* `numeric`:
-    * `metric` `string` - The actual metric field in which results will be sorted by.
+* previousStop `string` - The starting point of the alpha-numeric sort (optional).
+
+__Query#metric('numeric', metric)__
+
+* metric `string` - The actual metric field in which results will be sorted by.
 
 ---
 
@@ -737,6 +762,7 @@ __Arguments__
 
 TODO
 ----
+
 * Better ZooKeeper integration (watchable services, etc.)
 * More tests
 
