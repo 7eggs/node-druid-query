@@ -275,35 +275,39 @@ __Arguments__
 * name `string` - Aggregation output name.
 * args `...*` - Aggregation-specific arguments.
 
-__args__ depending on aggregation type:
+__Query.aggregation('cardinality', name, fieldNames, byRow)__
 
-* `cardinality`:
-    * `fieldNames` `string[]` - Fields to compute cardinality over.
-    * `byRow` `boolean` - If we should compute cardinality over distinct combinations. Default: `false`.
+* fieldNames `string[]` - Fields to compute cardinality over.
+* byRow `boolean` - If we should compute cardinality over distinct combinations. Default: `false`.
 
-* `count`:
-    * Nothing here :-)
+__Query.aggregation('count', name)__
 
-* `doubleSum`:
-    * `fieldName` `string` - Name of the metric column to sum over.
+__Query.aggregation('doubleSum', name, fieldName)__
 
-* `hyperUnique`:
-    * `fieldName` `string` - Dimension name.
+* fieldName `string` - Name of the metric column to sum over.
 
-* `javascript`:
-    * `fieldNames` `string[]` - Names of fields which are passed to aggregate function.
-    * `aggregateFn` `string | function` - Aggregation function.
-    * `combineFn` `string | function` - Combines partials.
-    * `resetFn` `string | function` - Initialization function.
+__Query.aggregation('hyperUnique', name, fieldName)__
 
-* `longSum`:
-    * `fieldName` `string` - Name of the metric column to sum over.
+* fieldName `string` - Dimension name.
 
-* `max`:
-    *  `fieldName` `string` - Name of the metric column.
+__Query.aggregation('javascript', name, fieldNames, aggregateFn, combineFn, resetFn)__
 
-* `min`:
-    *  `fieldName` `string` - Name of the metric column.
+* fieldNames `string[]` - Names of fields which are passed to aggregate function.
+* aggregateFn `string | function` - Aggregation function.
+* combineFn `string | function` - Combines partials.
+* resetFn `string | function` - Initialization function.
+
+__Query.aggregation('longSum', name, fieldName)__
+
+* fieldName `string` - Name of the metric column to sum over.
+
+__Query.aggregation('max', name, fieldName)__
+
+* fieldName `string` - Name of the metric column.
+
+__Query.aggregation('min', name, fieldName)__
+
+* fieldName `string` - Name of the metric column.
 
 ---
 
@@ -326,23 +330,26 @@ __Arguments__
 * type `string | object` - Spec type: `javascript`, `partial`, `regex`, `searchQuery`, `time` - or DimExtractionFn spec object.
 * args `...*` - Function-specific arguments.
 
-__args__ depending on extraction function `type`:
+__Query.extractionFunction('javascript', fn)__
 
-* `javascript`:
-    * `fn` `string | function` - JavaScript function.
+* fn `string | function` - JavaScript function.
 
-* `partial`:
-    * `regex` `string | RegExp` - Regular expression to match.
+__Query.extractionFunction('partial', regex)__
 
-* `regex`:
-    * `regex` `string | RegExp` - Regular expression to match.
+* regex `string | RegExp` - Regular expression to match.
 
-* `searchQuery`:
-    * `query` `object | ...*` - If one argument is specified we treat it as `SearchQuerySpec` object. Otherwise `Query.query()` is called for all the passed arguments.
+__Query.extractionFunction('regex', regex)__
 
-* `time`:
-    * `input` `string` - Input time format.
-    * `output` `string` - Output time format.
+* regex `string | RegExp` - Regular expression to match.
+
+__Query.extractionFunction('searchQuery`, query...)__
+
+* query `object | ...*` - If one argument is specified we treat it as `SearchQuerySpec` object. Otherwise `Query.query()` is called for all the passed arguments.
+
+__Query.extractionFunction('time', input, output)__
+
+* input `string` - Input time format.
+* output `string` - Output time format.
 
 ---
 
