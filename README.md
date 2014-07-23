@@ -77,6 +77,21 @@ druid.end()
 API
 ---
 
+* [Druid](#druid)
+    * [Events](#events)
+    * [Druid(connectionString, discoveryPath, [options])](#druidconnectionstring-discoverypath-options)
+    * [Druid#end()](#end)
+    * [Druid#getDataSources()](#string-getdatasources)
+    * [Druid#getNodes()](#druidnodes-getnodes)
+    * [Druid#groupBy(dataSource, [rawQuery])](#groupbyquery-groupbydatasource-rawquery)
+    * [Druid#search(dataSource, [rawQuery])](#searchquery-searchdatasource-rawquery)
+    * [Druid#segmentMetadata(dataSource, [rawQuery])](#segmentmetadataquery-segmentmetadatadatasource-rawquery)
+    * [Druid#timeBoundary(dataSource, [rawQuery])](#timeboundaryquery-timeboundarydatasource-rawquery)
+    * [Druid#timeseries(dataSource, [rawQuery])](#timeseriesquery-timeseriesdatasource-rawquery)
+    * [Druid#topN(dataSource, [rawQuery])](#topnquery-topndatasource-rawquery)
+
+---
+
 ### Druid
 
 Client which uses ZooKeeper to get data about Druid nodes and then gets data sources served by each node.
@@ -99,6 +114,13 @@ __Arguments__
     * `preferSSL` - Use SSL port of Druid node if available. Default: `false`.
 
 ---
+
+#### void end()
+
+End working with client.
+
+---
+
 
 #### `string[]` getDataSources()
 
