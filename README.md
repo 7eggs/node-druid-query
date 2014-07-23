@@ -54,9 +54,9 @@ Example (ZooKeeper)
 
 ```js
 var Druid = require('druid-query')
-  , druid = new Druid('localhost:2181,localhost:2182/druid', {preferSSL: true}, '/broker')
+  , druid = new Druid('localhost:2181,localhost:2182/druid', '/broker', {preferSSL: true})
 
-druid.on('ready', function() {
+druid.once('ready', function() {
   var query = druid.timeBoundary('example_dataSource')
 
   query.exec(function(err, results) {
@@ -70,131 +70,8 @@ druid.on('error', function(err) {
 })
 
 
-// Call .end() when finished querying Druid
+// Call .end() when finished working with Druid
 druid.end()
-```
-
-Queries
--------
-
-### GroupBy
-
-http://druid.io/docs/0.6.121/GroupByQuery.html
-
-```js
-client
-  .groupBy()
-  .dataSource('sample_datasource')
-  .granuality('day')
-  .dimensions('dim1', 'dim2')
-  .limitSpec('default', 5000, ['dim1', 'metric1'])
-  .filter('and', [
-    Query.filter('selector', 'sample_dimension1', 'sample_value1'),
-    Query.filter('or', [
-      Query.filter('selector', 'sample_dimension2', 'sample_value2'),
-      Query.filter('selector', 'sample_dimension3', 'sample_value3')
-    ])
-  ])
-  .aggregation('longSum', 'sample_name1', 'sample_fieldName1')
-  .aggregation('doubleSum', 'sample_name2', 'sample_fieldName2')
-  .postAggregation('arithmetic', 'sample_divide', '/', [
-    Query.postAggregation('fieldAccess', 'sample_name1', 'sample_fieldName1'),
-    Query.postAggregation('fieldAccess', 'sample_name2', 'sample_fieldName2')
-  ])
-  .intervals(new Date('2012-01-01T00:00:00.00'), new Date('2012-01-03T00:00:00.000'))
-  .having('greaterThan', 'sample_name1', 0)
-  .exec(/* result callback */)
-```
-
-### Search
-
-http://druid.io/docs/0.6.121/SearchQuery.html
-
-```js
-client
-  .search()
-  .dataSource('sample_datasource')
-  .granuality('day')
-  .searchDimensions('dim1', 'dim2')
-  .query('insensitive_contains', 'Ke')
-  .sort('lexicographic')
-  .intervals(new Date('2013-01-01T00:00:00.000'), new Date('2013-01-03T00:00:00.000'))
-  .exec(/* result callback */)
-```
-
-### Segment Metadata
-
-http://druid.io/docs/0.6.121/SegmentMetadataQuery.html
-
-```js
-client
-  .segmentMetadata()
-  .dataSource('sample_datasource')
-  .intervals(new Date('2013-01-01'), new Date('2014-01-01'))
-  .exec(/* result callback */)
-```
-
-### Time Boundary
-
-http://druid.io/docs/0.6.121/TimeBoundaryQuery.html
-
-```js
-client
-  .timeBoundary()
-  .dataSource('sample_datasource')
-  .exec(/* result callback */)
-```
-
-### Timeseries
-
-http://druid.io/docs/0.6.121/TimeseriesQuery.html
-
-```js
-client
-  .timeseries()
-  .dataSource('sample_datasource')
-  .granularity('day')
-  .filter('and', [
-    Query.filter('selector', 'sample_dimension1', 'sample_value1'),
-    Query.filter('or', [
-      Query.filter('selector', 'sample_dimension2', 'sample_value2'),
-      Query.filter('selector', 'sample_dimension3', 'sample_value3')
-    ])
-  ])
-  .aggregation('longSum', 'sample_name1', 'sample_fieldName1')
-  .aggregation('doubleSum', 'sample_name2', 'sample_fieldName2')
-  .postAggregation('arithmetic', 'sample_divide', '/', [
-    Query.postAggregation('fieldAccess', 'sample_name1', 'sample_fieldName1'),
-    Query.postAggregation('fieldAccess', 'sample_name2', 'sample_fieldName2')
-  ])
-  .intervals(new Date('2013-01-01T00:00:00.000'), new Date('2013-01-03T00:00:00.000'))
-  .exec(/* result callback */)
-```
-
-### TopN
-
-http://druid.io/docs/0.6.121/TopNQuery.html
-
-```js
-client
-  .topN()
-  .dataSource('sample_data')
-  .dimension('sample_dim')
-  .threshold(5)
-  .metric('count')
-  .granularity('all')
-  .filter('and', [
-    Query.filter('selector', 'dim1', 'some_value'),
-    Query.filter('selector', 'dim2', 'some_other_val')
-  ])
-  .aggregation('longSum', 'count', 'count')
-  .aggregation('doubleSum', 'some_metric', 'some_metric')
-  .postAggregation('arithmetic', 'sample_divide', '/', [
-    Query.postAggregation('fieldAccess', 'some_metric', 'some_metric'),
-    Query.postAggregation('fieldAccess', 'count', 'count')
-  ])
-  .intervals(new Date('2013-08-31T00:00:00.000'), new Date('2013-09-03T00:00:00.000'))
-  .exec(/* result callback */)
 ```
 
 API
@@ -202,7 +79,62 @@ API
 
 ### Druid
 
-#### Druid(url)
+Client which uses ZooKeeper to get data about Druid nodes and then gets data sources served by each node.
+
+#### Events
+
+* `ready` - emitted when client finished loading of nodes data (so it's ready to use). If client occasionally looses connection to ZooKeeper it's re-establed and client loads node data again and emits this event when done.
+* `error` - emitted when client receives any kind of error.
+
+#### Druid(connectionString, discoveryPath, [options])
+
+Create client instance.
+
+__Arguments__
+
+* connectionString `string` - ZooKeeper connection string.
+* discoveryPath `string` - Service discovery path.
+* options `object` - Client options.
+    * `zookeeper` - Options passed to `node-zookeeper-client` [createClient()](https://github.com/alexguan/node-zookeeper-client#client-createclientconnectionstring-options) function.
+    * `preferSSL` - Use SSL port of Druid node if available. Default: `false`.
+
+---
+
+#### `string[]` getDataSources()
+
+Get list of data sources.
+
+---
+
+#### `DruidNodes[]` getNodes()
+
+Get list of Nodes available.
+
+`DruidNode` extends `Druid.Client`. It keeps ZooKeeper node data and number of concurrent running queries (used for simple load-balancing).
+
+---
+
+#### `GroupByQuery` groupBy(dataSource, [rawQuery])
+#### `SearchQuery` search(dataSource, [rawQuery])
+#### `SegmentMetadataQuery` segmentMetadata(dataSource, [rawQuery])
+#### `TimeBoundaryQuery` timeBoundary(dataSource, [rawQuery])
+#### `TimeseriesQuery` timeseries(dataSource, [rawQuery])
+#### `TopNQuery` topN(dataSource, [rawQuery])
+
+Get node which serves given `dataSource` with least number of running queries and attach created `Query` object to it. If data source is unknown or client is not ready (read `Events` section above).
+
+__Arguments__
+
+* dataSource `string` - name of data source to create `Query` for.
+* rawQuery `object` - passed to `Query` constructor as second argument.
+
+---
+
+### Client (Druid.Client)
+
+Base client class which uses Druid node URL.
+
+#### Client(url)
 
 Create client instance.
 
@@ -214,7 +146,7 @@ __Arguments__
 
 #### `static` void fromZooKeeper(connectionString, discoveryPath, [options], callback)
 
-Lookup Druid services via ZooKeeper using [node-zookeper-client](https://www.npmjs.org/package/node-zookeeper-client) and choose random node. For choosed node `Druid` instance is created.
+Lookup Druid services via ZooKeeper using [node-zookeper-client](https://www.npmjs.org/package/node-zookeeper-client) and choose random node. For choosed node `Client` instance is created.
 
 __Arguments__
 
@@ -247,11 +179,11 @@ __Arguments__
 ---
 
 #### `GroupByQuery` groupBy([rawQuery])
-#### `SearchQuery` search([rawQuery)
-#### `SegmentMetadataQuery` segmentMetadata([rawQuery)
-#### `TimeBoundaryQuery` timeBoundary([rawQuery)
-#### `TimeseriesQuery` timeseries([rawQuery)
-#### `TopNQuery` topN([rawQuery)
+#### `SearchQuery` search([rawQuery])
+#### `SegmentMetadataQuery` segmentMetadata([rawQuery])
+#### `TimeBoundaryQuery` timeBoundary([rawQuery])
+#### `TimeseriesQuery` timeseries([rawQuery])
+#### `TopNQuery` topN([rawQuery])
 
 Create `Query` instance and attach it to client.
 
@@ -269,7 +201,7 @@ Create query instance
 
 __Arguments__
 
-* client `Druid` - Client instance.
+* client `Client` - Client instance.
 * rawQuery `object` - Raw query data (so you can call `Query#exec(callback)` or `Druid#exec(query, callback)` right after creating `Query` object. Keep in mind that if constructor is not base `Query` class (e.g. `GroupByQuery`) `queryType` property is first removed from `rawQuery` object to prevent errors.
 
 ---
@@ -289,8 +221,6 @@ __Arguments__
 Returns query data.
 
 ---
-
-### Query field setter methods
 
 #### `static` `object` aggregation(type, name, [args...])
 
@@ -786,6 +716,129 @@ __Arguments__
 * value `string | string[] | object` - `all`, `none` or array of column names (list) or `toInclude` raw spec data as object.
 
 ---
+
+Queries
+-------
+
+### GroupBy (Druid.GroupByQuery)
+
+http://druid.io/docs/0.6.121/GroupByQuery.html
+
+```js
+client
+  .groupBy()
+  .dataSource('sample_datasource')
+  .granuality('day')
+  .dimensions('dim1', 'dim2')
+  .limitSpec('default', 5000, ['dim1', 'metric1'])
+  .filter('and', [
+    Query.filter('selector', 'sample_dimension1', 'sample_value1'),
+    Query.filter('or', [
+      Query.filter('selector', 'sample_dimension2', 'sample_value2'),
+      Query.filter('selector', 'sample_dimension3', 'sample_value3')
+    ])
+  ])
+  .aggregation('longSum', 'sample_name1', 'sample_fieldName1')
+  .aggregation('doubleSum', 'sample_name2', 'sample_fieldName2')
+  .postAggregation('arithmetic', 'sample_divide', '/', [
+    Query.postAggregation('fieldAccess', 'sample_name1', 'sample_fieldName1'),
+    Query.postAggregation('fieldAccess', 'sample_name2', 'sample_fieldName2')
+  ])
+  .intervals(new Date('2012-01-01T00:00:00.00'), new Date('2012-01-03T00:00:00.000'))
+  .having('greaterThan', 'sample_name1', 0)
+  .exec(/* result callback */)
+```
+
+### Search (Druid.SearchQuery)
+
+http://druid.io/docs/0.6.121/SearchQuery.html
+
+```js
+client
+  .search()
+  .dataSource('sample_datasource')
+  .granuality('day')
+  .searchDimensions('dim1', 'dim2')
+  .query('insensitive_contains', 'Ke')
+  .sort('lexicographic')
+  .intervals(new Date('2013-01-01T00:00:00.000'), new Date('2013-01-03T00:00:00.000'))
+  .exec(/* result callback */)
+```
+
+### Segment Metadata (Druid.SegmentMetadataQuery)
+
+http://druid.io/docs/0.6.121/SegmentMetadataQuery.html
+
+```js
+client
+  .segmentMetadata()
+  .dataSource('sample_datasource')
+  .intervals(new Date('2013-01-01'), new Date('2014-01-01'))
+  .exec(/* result callback */)
+```
+
+### Time Boundary (Druid.TimeBoundaryQuery)
+
+http://druid.io/docs/0.6.121/TimeBoundaryQuery.html
+
+```js
+client
+  .timeBoundary()
+  .dataSource('sample_datasource')
+  .exec(/* result callback */)
+```
+
+### Timeseries (Druid.TimeseriesQuery)
+
+http://druid.io/docs/0.6.121/TimeseriesQuery.html
+
+```js
+client
+  .timeseries()
+  .dataSource('sample_datasource')
+  .granularity('day')
+  .filter('and', [
+    Query.filter('selector', 'sample_dimension1', 'sample_value1'),
+    Query.filter('or', [
+      Query.filter('selector', 'sample_dimension2', 'sample_value2'),
+      Query.filter('selector', 'sample_dimension3', 'sample_value3')
+    ])
+  ])
+  .aggregation('longSum', 'sample_name1', 'sample_fieldName1')
+  .aggregation('doubleSum', 'sample_name2', 'sample_fieldName2')
+  .postAggregation('arithmetic', 'sample_divide', '/', [
+    Query.postAggregation('fieldAccess', 'sample_name1', 'sample_fieldName1'),
+    Query.postAggregation('fieldAccess', 'sample_name2', 'sample_fieldName2')
+  ])
+  .intervals(new Date('2013-01-01T00:00:00.000'), new Date('2013-01-03T00:00:00.000'))
+  .exec(/* result callback */)
+```
+
+### TopN (Druid.TopNQuery)
+
+http://druid.io/docs/0.6.121/TopNQuery.html
+
+```js
+client
+  .topN()
+  .dataSource('sample_data')
+  .dimension('sample_dim')
+  .threshold(5)
+  .metric('count')
+  .granularity('all')
+  .filter('and', [
+    Query.filter('selector', 'dim1', 'some_value'),
+    Query.filter('selector', 'dim2', 'some_other_val')
+  ])
+  .aggregation('longSum', 'count', 'count')
+  .aggregation('doubleSum', 'some_metric', 'some_metric')
+  .postAggregation('arithmetic', 'sample_divide', '/', [
+    Query.postAggregation('fieldAccess', 'some_metric', 'some_metric'),
+    Query.postAggregation('fieldAccess', 'count', 'count')
+  ])
+  .intervals(new Date('2013-08-31T00:00:00.000'), new Date('2013-09-03T00:00:00.000'))
+  .exec(/* result callback */)
+```
 
 TODO
 ----
