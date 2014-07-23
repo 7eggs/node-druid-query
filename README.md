@@ -1,21 +1,23 @@
-node-druid-query
+druid-query
 ================
 
 [![Build Status](https://travis-ci.org/7eggs/node-druid-query.svg)](https://travis-ci.org/7eggs/node-druid-query)
 
-Simple querying for Druid (http://druid.io) in Node.js.
+Simple querying for Druid (http://druid.io) in Node.js. Inspired by [ruby-druid](https://github.com/liquidm/ruby-druid).
 
 Installation
 ------------
 
     npm install druid-query --save
 
-Example
--------
+Example (simple)
+----------------
 
 ```js
 var Druid = require('druid-query')
-  , client = new Druid('http://127.0.0.1:8080')
+  , Client = Druid.Client
+  , Query = Druid.Query
+  , client = new Client('http://127.0.0.1:8080')
 
 var q1 = client.groupBy()
 q1.dataSource('randSeq')
@@ -45,6 +47,31 @@ q2.dataSource('wikipedia')
 client.exec(q2, function(err, result) {
   // handle results
 })
+```
+
+Example (ZooKeeper)
+-------------------
+
+```js
+var Druid = require('druid-query')
+  , druid = new Druid('localhost:2181,localhost:2182/druid', {preferSSL: true}, '/broker')
+
+druid.on('ready', function() {
+  var query = druid.timeBoundary('example_dataSource')
+
+  query.exec(function(err, results) {
+    // handle error & result
+  })
+})
+
+
+druid.on('error', function(err) {
+  // handle client error here
+})
+
+
+// Call .end() when finished querying Druid
+druid.end()
 ```
 
 Queries
