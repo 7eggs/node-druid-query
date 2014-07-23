@@ -21,7 +21,7 @@ var Druid = require('druid-query')
 
 var q1 = client.groupBy()
 q1.dataSource('randSeq')
-q1.granuality('all')
+q1.granularity('all')
 q1
   .dimensions([])
   .aggregation('count', 'rows')
@@ -121,7 +121,7 @@ API
     * [#dimension(dimension, [outputName], [extractFn])](#query-dimensiondimension-outputname-extractfn)
     * [#dimensions(list...)](#query-dimensionslist)
     * [#filter(type, [args...])](#query-filtertype-args)
-    * [#granuality(type, [args...])](#query-granualitytype-args)
+    * [#granularity(type, [args...])](#query-granularitytype-args)
     * [#having(type, [args...])](#query-havingtype-args)
     * [#intervals([start], [end], [intervals...])](#query-intervalsstart-end-intervals)
     * [#limitSpec(type, limit, orderByColumns)](#query-limitspectype-limit-orderbycolumns)
@@ -608,21 +608,21 @@ __Arguments__
 
 ---
 
-#### `Query` granuality(type, [args...])
+#### `Query` granularity(type, [args...])
 
-Set granuality of query.
+Set granularity of query.
 
 __Arguments__
 
-* value `string | object` - Granuality as string or object. If `value` is string it must be one of those: `all`, `none`, `minute`, `fifteen_minute`, `thirty_minute`, `hour`, `day` plus `duration` and `period` which mean granuality spec object is created.
+* value `string | object` - Granularity as string or object. If `value` is string it must be one of those: `all`, `none`, `minute`, `fifteen_minute`, `thirty_minute`, `hour`, `day` plus `duration` and `period` which mean granularity spec object is created.
 * args `...*` - Specific arguments (in case if `value` is `period` or `duration`).
 
-__Query#granuality('duration', duration, [origin])__
+__Query#granularity('duration', duration, [origin])__
 
 * duration `string | number` - Duration value in ms.
 * origin `string | number | Date` - Start time (optional).
 
-__Query#granuality('period', period, [timeZone], [origin])__
+__Query#granularity('period', period, [timeZone], [origin])__
 
 * period `string` - ISO-8601 duration format.
 * timeZone `string` - Timezone. Default: UTC (optional).
@@ -796,7 +796,7 @@ http://druid.io/docs/0.6.121/GroupByQuery.html
 client
   .groupBy()
   .dataSource('sample_datasource')
-  .granuality('day')
+  .granularity('day')
   .dimensions('dim1', 'dim2')
   .limitSpec('default', 5000, ['dim1', 'metric1'])
   .filter('and', [
@@ -825,7 +825,7 @@ http://druid.io/docs/0.6.121/SearchQuery.html
 client
   .search()
   .dataSource('sample_datasource')
-  .granuality('day')
+  .granularity('day')
   .searchDimensions('dim1', 'dim2')
   .query('insensitive_contains', 'Ke')
   .sort('lexicographic')
