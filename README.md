@@ -80,15 +80,62 @@ API
 * [Druid](#druid)
     * [Events](#events)
     * [Druid(connectionString, discoveryPath, [options])](#druidconnectionstring-discoverypath-options)
-    * [Druid#end()](#end)
-    * [Druid#getDataSources()](#string-getdatasources)
-    * [Druid#getNodes()](#druidnodes-getnodes)
-    * [Druid#groupBy(dataSource, [rawQuery])](#groupbyquery-groupbydatasource-rawquery)
-    * [Druid#search(dataSource, [rawQuery])](#searchquery-searchdatasource-rawquery)
-    * [Druid#segmentMetadata(dataSource, [rawQuery])](#segmentmetadataquery-segmentmetadatadatasource-rawquery)
-    * [Druid#timeBoundary(dataSource, [rawQuery])](#timeboundaryquery-timeboundarydatasource-rawquery)
-    * [Druid#timeseries(dataSource, [rawQuery])](#timeseriesquery-timeseriesdatasource-rawquery)
-    * [Druid#topN(dataSource, [rawQuery])](#topnquery-topndatasource-rawquery)
+    * [#end()](#void-end)
+    * [#getDataSources()](#string-getdatasources)
+    * [#getNodes()](#druidnodes-getnodes)
+    * [#groupBy(dataSource, [rawQuery])](#groupbyquery-groupbydatasource-rawquery)
+    * [#search(dataSource, [rawQuery])](#searchquery-searchdatasource-rawquery)
+    * [#segmentMetadata(dataSource, [rawQuery])](#segmentmetadataquery-segmentmetadatadatasource-rawquery)
+    * [#timeBoundary(dataSource, [rawQuery])](#timeboundaryquery-timeboundarydatasource-rawquery)
+    * [#timeseries(dataSource, [rawQuery])](#timeseriesquery-timeseriesdatasource-rawquery)
+    * [#topN(dataSource, [rawQuery])](#topnquery-topndatasource-rawquery)
+* [Client](#client-druidclient)
+    * [Client(url)](#clienturl)
+    * [.fromZooKeeper(connectionString, discoveryPath, [options], callback)](#static-void-fromzookeeperconnectionstring-discoverypath-options-callback)
+    * [#dataSources(callback)](#void-datasourcescallback)
+    * [#exec(query, callback)](#void-execquery-callback)
+    * [#groupBy([rawQuery])](#groupbyquery-groupbyrawquery)
+    * [#search([rawQuery])](#searchquery-searchrawquery)
+    * [#segmentMetadata([rawQuery])](#segmentmetadataquery-segmentmetadatarawquery)
+    * [#timeBoundary([rawQuery])](#timeboundaryquery-timeboundaryrawquery)
+    * [#timeseries([rawQuery])](#timeseriesquery-timeseriesrawquery)
+    * [#topN([rawQuery])](#topnquery-topnrawquery)
+* [Query](#query-druidquery)
+    * [Query(client, [rawQuery])](#queryclient-rawquery)
+    * [#exec(callback))](#void-execcallback)
+    * [#exec(callback)](#void-execcallback)
+    * [#toJSON()](#object-tojson)
+* Druid.Query fields setters
+    * [.aggregation(type, name, [args...])](#static-object-aggregationtype-name-args)
+    * [.aggregations(list...)](#static-object-aggregationslist)
+    * [.extractionFunction(type, [args...])](#static-object-extractionfunctiontype-args)
+    * [.filter(type, [args...])](#static-object-filtertype-args)
+    * [.having(type, [args...])](#static-object-havingtype-args)
+    * [.orderBy(dimension, [direction])](#static-object-orderbydimension-direction)
+    * [.postAggregation(type, name, [args...])](#static-object-postaggregationtype-name-args)
+    * [.postAggregations(list...)](#static-object-postaggregationslist)
+    * [.query(type, value...)](#static-object-querytype-value)
+    * [#aggregation(type, name, [args...])](#query-aggregationtype-name-args)
+    * [#aggregations(list...)](#query-aggregationslist)
+    * [#context(data)](#query-contextdata)
+    * [#dataSource(dataSource)](#query-datasourcedatasource)
+    * [#dimension(dimension, [outputName], [extractFn])](#query-dimensiondimension-outputname-extractfn)
+    * [#dimensions(list...)](#query-dimensionslist)
+    * [#filter(type, [args...])](#query-filtertype-args)
+    * [#granuality(type, [args...])](#query-granualitytype-args)
+    * [#having(type, [args...])](#query-havingtype-args)
+    * [#intervals([start], [end], [intervals...])](#query-intervalsstart-end-intervals)
+    * [#limitSpec(type, limit, orderByColumns)](#query-limitspectype-limit-orderbycolumns)
+    * [#merge(value)](#query-mergevalue)
+    * [#metric(type, [args...])](#query-metrictype-args)
+    * [#postAggregation(type, name, [args...])](#query-postaggregationtype-name-args)
+    * [#postAggregations(list...)](#query-postaggregationslist)
+    * [#query([type], value...)](#query-querytype-value)
+    * [#queryType(type)](#query-querytypetype)
+    * [#searchDimensions(list...)](#query-searchdimensionslist)
+    * [#sort(type)](#query-sorttype)
+    * [#threshold(value)](#query-thresholdvalue)
+    * [#toInclude(value)](#query-toincludevalue)
 
 ---
 
@@ -298,7 +345,7 @@ Return array of aggregations.
 
 __Arguments__
 
-* list `object[] | object...` - Array of aggregation specs. Specs can be returned by `Query.aggregation()` or raw JavaScript objects.
+* list `object[] | object...` - Array of aggregation specs. Specs can be returned by [Query.aggregation()](#static-object-aggregationtype-name-args) or raw JavaScript objects.
 
 ---
 
@@ -325,7 +372,7 @@ __Query.extractionFunction('regex', regex)__
 
 __Query.extractionFunction('searchQuery`, query...)__
 
-* query `object | ...*` - If one argument is specified we treat it as `SearchQuerySpec` object. Otherwise `Query.query()` is called for all the passed arguments.
+* query `object | ...*` - If one argument is specified we treat it as `SearchQuerySpec` object. Otherwise [Query.query()](#static-object-querytype-value) is called for all the passed arguments.
 
 __Query.extractionFunction('time', input, output)__
 
@@ -354,7 +401,7 @@ __Query.filter('javascript', dimension, fn)__
 
 __Query.filter('not', filter...)__
 
-* filter `string | ...*` - If this argument is object we use it as filter spec. Otherwise all arguments are passed again to `Query.filter()`.
+* filter `string | ...*` - If this argument is object we use it as filter spec. Otherwise all arguments are passed again to [Query.filter()](#static-object-filtertype-args).
 
 __Query.filter('or', filters...)__
 
@@ -402,7 +449,7 @@ __Query.having('lessThan', aggregation, value)__
 
 __Query.having('not', spec...)__
 
-* spec `object | ...*` - If first argument is object we use it as filter spec. Otherwise all arguments are passed again to `Query.having()`.
+* spec `object | ...*` - If first argument is object we use it as filter spec. Otherwise all arguments are passed again to [Query.having()](#static-object-havingtype-args).
 
 __Query.having('or', specs...)__
 
@@ -434,7 +481,7 @@ __Arguments__
 __Query.postAggregation('arithmetic', name, op, fields)__
 
 * op `string` - Arithmetic operation: +, -, * or /.
-* fields `object[] | ...object` - List of Post-Aggregation specs: raw objects or `Query.postAggregation()` calls.
+* fields `object[] | ...object` - List of Post-Aggregation specs: raw objects or [Query.postAggregation()](#static-object-postaggregationtype-name-args) results.
 
 __Query.postAggregation('constant', name, value)__
 
@@ -461,7 +508,7 @@ Return array of post-aggregation specs.
 
 __Arguments__
 
-* list `object[] | object...` - Array of aggregation specs. They can be ones returned by `Query.postAggregation()` or raw JavaScript objects.
+* list `object[] | object...` - Array of aggregation specs. They can be ones returned by [Query.postAggregation()](#static-object-postaggregationtype-name-args) or raw JavaScript objects.
 
 ---
 
@@ -484,7 +531,7 @@ __Arguments__
 
 * type `string | object` - Aggregation type: `cardinality`, `count`, `doubleSum`, `hyperUnique`, `javascript`, `longSum`, `max`, `min`. Or aggregation spec as JS object.
 * name `string` - Aggregation output name.
-* args `...*` - Aggregation specific arguments. Read above about arguments in `Query.aggregation()` description.
+* args `...*` - Aggregation specific arguments. Read above about arguments in [Query.aggregation()](#static-object-aggregationtype-name-args) description.
 
 ---
 
@@ -494,7 +541,7 @@ Set `aggregations` field.
 
 __Arguments__
 
-* list `object[] | object...` - Array of aggregation specs. Specs can be returned by `Query.aggregation()` or raw JavaScript objects.
+* list `object[] | object...` - Array of aggregation specs. Specs can be returned by [Query.aggregation()](#static-object-aggregationtype-name-args) or raw JavaScript objects.
 
 ---
 
@@ -537,7 +584,7 @@ __Arguments__
 
 * dimension `string` - Dimension to operate on.
 * outputName `string` - Dimension output name.
-* extractFn `object` - Extraction function spec created by `Query.extractionFunction()` or raw JavaScript object.
+* extractFn `object` - Extraction function spec created by [Query.extractionFunction()](#static-object-extractionfunctiontype-args) or raw JavaScript object.
 
 ---
 
@@ -558,7 +605,7 @@ Set filter spec.
 __Arguments__
 
 * type `string | object` - Filter type: `and`, `javascript`, `not`, `or`, `regex`, `selector`. Otherwise whole filter object can be specified as first argument.
-* args `...*` - Filter-specific arguments. They are described in `Query.filter()` method description.
+* args `...*` - Filter-specific arguments. They are described in [Query.filter()](#static-object-filtertype-args) method description.
 
 ---
 
@@ -591,7 +638,7 @@ Set `having` field.
 __Arguments__
 
 * type `string | object` - HavingSpec object or type: `and`, `equalTo`, `greaterThan`, `lessThan`, `not`, `or`.
-* args `...*` - Arguments specific to spec type. They are described in `Query.having()`.
+* args `...*` - Arguments specific to spec type. They are described in [Query.having()](#static-object-havingtype-args).
 
 ---
 
@@ -619,7 +666,7 @@ __Arguments__
 
 * type `string | object` - raw LimitSpec object or LimitSpec type.
 * limit `number` - Limit of records returned.
-* orderByColumns `object[] | string[]` - OrderBy specs array. Specs can be strings or results of `Query.orderBy()`
+* orderByColumns `object[] | string[]` - OrderBy specs array. Specs can be strings or results of [Query.orderBy()](#static-object-orderbydimension-direction)
 
 ---
 
@@ -664,7 +711,7 @@ __Arguments__
 
 * type `string | object` - Post-aggregation type: `arithmetic`, `constant`, `fieldAccess`, `hyperUniqueCardinality`, `javascript`. It can be post-aggregation object itself.
 * name `string` - Post-aggregation output name.
-* args `...*` - Post-aggregation specific arguments. Read above about arguments in `Query.postAggregation()` method description.
+* args `...*` - Post-aggregation specific arguments. Read above about arguments in [Query.postAggregation()](#static-object-postaggregationtype-name-args) method description.
 
 ---
 
@@ -674,7 +721,7 @@ Set `postAggregations` field.
 
 __Arguments__
 
-* list `object[] | object...` - Array of aggregation specs. They can be ones returned by `Query.postAggregation()` or raw JavaScript objects.
+* list `object[] | object...` - Array of aggregation specs. They can be ones returned by [Query.postAggregation()](#static-object-postaggregationtype-name-args) or raw JavaScript objects.
 
 ---
 
