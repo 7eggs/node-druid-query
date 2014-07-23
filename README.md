@@ -843,7 +843,6 @@ client
 TODO
 ----
 
-* Better ZooKeeper integration (watchable services, etc.)
 * More tests
 
 LICENSE
