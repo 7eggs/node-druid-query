@@ -1,34 +1,34 @@
 {
-  "name":            "druid-query",
-  "description":     "Simple querying for Druid",
-  "keywords":        [
+  "name": "druid-query",
+  "description": "Simple querying for Druid",
+  "keywords": [
     "druid",
     "query",
     "http"
   ],
-  "version":         "0.0.6",
-  "main":            "lib/index.js",
-  "repository":      {
+  "version": "0.0.7",
+  "main": "lib/index.js",
+  "repository": {
     "type": "git",
-    "url":  "https://github.com/7eggs/node-druid-query.git"
+    "url": "https://github.com/7eggs/node-druid-query.git"
   },
-  "bugs":            {
+  "bugs": {
     "url": "https://github.com/7eggs/node-druid-query/issues"
   },
-  "dependencies":    {
+  "dependencies": {
     "custom-error-generator": "^7.0.0",
-    "debug":                  "^1.0.4",
-    "lodash":                 "^2.4.1",
-    "node-zookeeper-client":  "^0.2.1",
-    "request":                "^2.37.0"
+    "debug": "^1.0.4",
+    "lodash": "^2.4.1",
+    "node-zookeeper-client": "^0.2.1",
+    "request": "^2.37.0"
   },
   "devDependencies": {
     "expect.js": "^0.3.1",
-    "mocha":     "^1.20.1"
+    "mocha": "^1.20.1"
   },
-  "scripts":         {
+  "scripts": {
     "test": "./node_modules/.bin/mocha --recursive -R spec spec/"
   },
-  "author":          "Alexander Makarenko <estliberitas@gmail.com>",
-  "license":         "MIT"
+  "author": "Alexander Makarenko <estliberitas@gmail.com>",
+  "license": "MIT"
 }
