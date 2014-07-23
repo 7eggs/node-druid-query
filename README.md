@@ -1,7 +1,7 @@
 druid-query
 ================
 
-[![Build Status](https://travis-ci.org/7eggs/node-druid-query.svg)](https://travis-ci.org/7eggs/node-druid-query)
+[![NPM version](https://badge.fury.io/js/druid-query.svg)](http://badge.fury.io/js/druid-query) [![Build Status](https://travis-ci.org/7eggs/node-druid-query.svg)](https://travis-ci.org/7eggs/node-druid-query)
 
 Simple querying for Druid (http://druid.io) in Node.js. Inspired by [ruby-druid](https://github.com/liquidm/ruby-druid).
 
