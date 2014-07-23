@@ -103,9 +103,8 @@ API
 * [Query](#query-druidquery)
     * [Query(client, [rawQuery])](#queryclient-rawquery)
     * [#exec(callback))](#void-execcallback)
-    * [#exec(callback)](#void-execcallback)
     * [#toJSON()](#object-tojson)
-* Druid.Query fields setters
+* Field setters ([Query](#query-druidquery) methods)
     * [.aggregation(type, name, [args...])](#static-object-aggregationtype-name-args)
     * [.aggregations(list...)](#static-object-aggregationslist)
     * [.extractionFunction(type, [args...])](#static-object-extractionfunctiontype-args)
