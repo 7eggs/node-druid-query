@@ -31,7 +31,7 @@ q1
     Query.postAggregation('fieldAccess', null, 'randomNumberSum')
     Query.postAggregation('fieldAccess', null, 'rows')
   ])
-  .intervals(Date.UTC(2012, 9, 1), Date.UTC(2020, 0, 1))
+  .interval(Date.UTC(2012, 9, 1), Date.UTC(2020, 0, 1))
 
 q1.exec(function(err, result) {
   if (err) {
@@ -64,7 +64,7 @@ query
   .dimensions('dimension2', 'dimension3')
   .granularity('day')
   .aggregation('count', 'howMany')
-  .intervals(Date.UTC(2012, 0, 1), Date.UTC(2015, 0, 1))
+  .interval(Date.UTC(2012, 0, 1), Date.UTC(2015, 0, 1))
   .exec(function(err, result) {
     // handle error
     // handle result
