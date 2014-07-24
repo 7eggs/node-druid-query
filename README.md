@@ -502,6 +502,19 @@ __Query.having('or', specs...)__
 
 ---
 
+#### `static` `object` interval(start, [end])
+
+Create interval string.
+
+Of one argument specified it's treated as interval string.
+
+__Arguments__
+
+* start `string | number | Date` - Interval string or start time as timestamp, date string or `Date` object.
+* end `string | number | Date` - End time.
+
+---
+
 #### `static` `object` orderBy(dimension, [direction])
 
 Create OrderBy spec.
@@ -696,20 +709,24 @@ __Arguments__
 
 ---
 
-#### `Query` intervals([start], [end], [intervals...])
+#### `Query` interval(start, [end])
 
-Set intervals.
-
-Use two date arguments if you specify one interval (`start` and `end`).
-
-In other cases use array arguments: each one will represent different interval (`intervals...`).
+Add interval string to `intervals` field.
 
 __Arguments__
 
-* start `number | string | Date` - Interval start.
-* end `number | string | Date` - Interval end.
-* intervals `...array` - Intervals list.
+* start `number | string | Date` - Start time or interval string.
+* end `number | string | Date` - End time.
 
+---
+
+#### `Query` intervals(intervals...)
+
+Set intervals.
+
+__Arguments__
+
+* list `string[] | ...string` - List of interval strings.
 ---
 
 #### `Query` limitSpec(type, limit, orderByColumns)
