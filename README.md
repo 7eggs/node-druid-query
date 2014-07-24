@@ -311,6 +311,8 @@ __Arguments__
 
 ### Query (Druid.Query)
 
+__Note:__ each field method returns field value if no arguments specified.
+
 #### Query(client, [rawQuery])
 
 Create query instance
