@@ -16,7 +16,7 @@ util.inherits(TestQuery, Query)
 
 
 Query.addFields(TestQuery, ['aggregations', 'context', 'dimension', 'dimensions', 'filter', 'granularity', 'having', 'intervals', 'limitSpec', 'merge', 'metric', 'postAggregations', 'query', 'searchDimensions', 'sort', 'threshold', 'toInclude'])
-Query.addStatic(TestQuery, ['aggregations', 'extractionFunction', 'filter', 'having', 'orderBy', 'postAggregations', 'query'])
+Query.addStatic(TestQuery, ['aggregations', 'extractionFunction', 'filter', 'having', 'intervals', 'orderBy', 'postAggregations', 'query'])
 
 
 module.exports = TestQuery

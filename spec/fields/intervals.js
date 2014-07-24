@@ -5,40 +5,63 @@ var expect = require('expect.js')
 
 
 describe('Query', function() {
-  var query
 
-  beforeEach(function() {
-    query = new Query()
+
+  describe('.interval()', function() {
+    it('should create interval using string', function() {
+      var value = Query.interval('2000-01-01/2015-01-01')
+
+      expect(value).to.be('2000-01-01/2015-01-01')
+    })
+
+    it('should create interval using pair of timestamps', function() {
+      var value = Query.interval(Date.UTC(2010, 0, 1), Date.UTC(2012, 0, 1))
+
+      expect(value).to.be('2010-01-01T00:00:00.000Z/2012-01-01T00:00:00.000Z')
+    })
+
+    it('should create interval using pair of date strings', function() {
+      var value = Query.interval('2010-01-01T00:00:00.000Z', '2011-01-01T00:00:00.000Z')
+
+      expect(value).to.be('2010-01-01T00:00:00.000Z/2011-01-01T00:00:00.000Z')
+    })
+
+    it('should create interval using pair of dates', function() {
+      var value = Query.interval(new Date('2010-01-01T00:00:00.000Z'), new Date('2011-01-01T00:00:00.000Z'))
+
+      expect(value).to.be('2010-01-01T00:00:00.000Z/2011-01-01T00:00:00.000Z')
+    })
+
+    it('should throw error if wrong arguments are specified', function() {
+      expect(function() {
+        Query.interval(null)
+      })
+    })
+
+    it('should throw error if wrong arguments are specified #2', function() {
+      expect(function() {
+        Query.interval(false, true)
+      })
+    })
   })
 
   describe('#intervals()', function() {
-    it('should set intervals using two dates', function() {
-      var raw = query.intervals(new Date('2010-01-01T00:00:00.000Z'), new Date('2011-01-01T00:00:00.000Z')).toJSON()
+    var query
 
-      expect(raw.intervals).to.eql([
-        '2010-01-01T00:00:00.000Z/2011-01-01T00:00:00.000Z'
-      ])
+    beforeEach(function() {
+      query = new Query()
     })
 
-    it('should set intervals using interval arrays ([start, end])', function() {
-      var raw = query.intervals([0, 3600000], [7200000, 10800000]).toJSON()
+    it('should set interval using string', function() {
+      var value = query.interval('2000-01-01/2015-01-01').intervals()[0]
 
-      expect(raw.intervals).to.eql([
-        '1970-01-01T00:00:00.000Z/1970-01-01T01:00:00.000Z',
-        '1970-01-01T02:00:00.000Z/1970-01-01T03:00:00.000Z'
-      ])
+      expect(value).to.be('2000-01-01/2015-01-01')
     })
 
-    it('should throw error if interval is not specified', function() {
-      expect(function() {
-        query.intervals(null)
-      }).to.throwException()
-    })
+    it('should set interval using pair of dates', function() {
+      var value = query.interval(Date.UTC(2010, 0, 1), Date.UTC(2012, 0, 1)).intervals()[0]
 
-    it('should throw error if bad date specified', function() {
-      expect(function() {
-        query.intervals(false, true)
-      }).to.throwException()
+      expect(value).to.be('2010-01-01T00:00:00.000Z/2012-01-01T00:00:00.000Z')
     })
   })
 })

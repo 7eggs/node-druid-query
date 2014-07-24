@@ -64,7 +64,7 @@ describe('Query', function() {
           .dimensions('dimension1', 'dimension2')
           .granularity('day')
           .aggregation('count', 'result')
-          .intervals(Date.UTC(2010, 0, 1), Date.UTC(2020, 0, 1))
+          .interval(Date.UTC(2010, 0, 1), Date.UTC(2020, 0, 1))
 
         raw = query.dataSource('query', dsQuery).toJSON()
 

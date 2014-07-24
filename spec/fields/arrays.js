@@ -71,11 +71,29 @@ describe('Query', function() {
     })
 
     it('should set value using each argument as spec', function() {
-      var raw = query.dimensions(['x', 'y']).toJSON()
+      var raw = query.dimensions('x', 'y').toJSON()
 
       expect(raw.dimensions).to.eql(['x', 'y'])
       expect(raw.dimensions).to.be.an(Array)
       expect(raw.dimensions).to.have.length(2)
+    })
+  })
+
+  describe('#intervals()', function() {
+    it('should set value using array argument', function() {
+      var raw = query.intervals(['a', 'b']).toJSON()
+
+      expect(raw.intervals).to.eql(['a', 'b'])
+      expect(raw.intervals).to.be.an(Array)
+      expect(raw.intervals).to.have.length(2)
+    })
+
+    it('should set value using each argument as spec', function() {
+      var raw = query.intervals('x', 'y').toJSON()
+
+      expect(raw.intervals).to.eql(['x', 'y'])
+      expect(raw.intervals).to.be.an(Array)
+      expect(raw.intervals).to.have.length(2)
     })
   })
 
@@ -89,7 +107,7 @@ describe('Query', function() {
     })
 
     it('should set value using each argument as spec', function() {
-      var raw = query.searchDimensions(['sdA', 'sdB']).toJSON()
+      var raw = query.searchDimensions('sdA', 'sdB').toJSON()
 
       expect(raw.searchDimensions).to.eql(['sdA', 'sdB'])
       expect(raw.searchDimensions).to.be.an(Array)
