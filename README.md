@@ -139,6 +139,7 @@ API
     * [.extractionFunction(type, [args...])](#static-object-extractionfunctiontype-args)
     * [.filter(type, [args...])](#static-object-filtertype-args)
     * [.having(type, [args...])](#static-object-havingtype-args)
+    * [.interval(start, [end])(#static-object-intervalstart-end)
     * [.orderBy(dimension, [direction])](#static-object-orderbydimension-direction)
     * [.postAggregation(type, name, [args...])](#static-object-postaggregationtype-name-args)
     * [.postAggregations(list...)](#static-object-postaggregationslist)
@@ -152,7 +153,8 @@ API
     * [#filter(type, [args...])](#query-filtertype-args)
     * [#granularity(type, [args...])](#query-granularitytype-args)
     * [#having(type, [args...])](#query-havingtype-args)
-    * [#intervals([start], [end], [intervals...])](#query-intervalsstart-end-intervals)
+    * [#interval(start, [end])](#query-intervalstart-end)
+    * [#intervals(intervals...)](#query-intervalsintervals)
     * [#limitSpec(type, limit, orderByColumns)](#query-limitspectype-limit-orderbycolumns)
     * [#merge(value)](#query-mergevalue)
     * [#metric(type, [args...])](#query-metrictype-args)
@@ -727,6 +729,7 @@ Set intervals.
 __Arguments__
 
 * list `string[] | ...string` - List of interval strings.
+
 ---
 
 #### `Query` limitSpec(type, limit, orderByColumns)
