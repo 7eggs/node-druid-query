@@ -31,7 +31,7 @@ describe('Query', function() {
 
     it('should throw error if interval is not specified', function() {
       expect(function() {
-        query.intervals()
+        query.intervals(null)
       }).to.throwException()
     })
 

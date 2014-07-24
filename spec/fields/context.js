@@ -13,7 +13,7 @@ describe('Query', function() {
 
   describe('#context()', function() {
     it('should create empty object if nothing specified', function() {
-      var raw = query.context().toJSON()
+      var raw = query.context(null).toJSON()
 
       expect(raw.context).to.be.empty()
     })

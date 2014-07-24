@@ -42,7 +42,7 @@ describe('Query', function() {
 
     it('should throw error if dimension is not set', function() {
       expect(function() {
-        query.dimension()
+        query.dimension(null)
       }).to.throwException()
     })
 

@@ -47,7 +47,7 @@ describe('Query', function() {
 
     it('should throw error if bad value is specified', function() {
       expect(function() {
-        query.toInclude()
+        query.toInclude(null)
       }).to.throwException()
     })
   })

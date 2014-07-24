@@ -22,7 +22,7 @@ describe('Query', function() {
 
     it('should throw error if bad type is specified', function() {
       expect(function() {
-        query.sort()
+        query.sort(null)
       }).to.throwException()
     })
 

@@ -52,7 +52,7 @@ describe('Query', function() {
 
     it('should throw error if type is not specified', function() {
       expect(function() {
-        query.query()
+        query.query(null)
       }).to.throwException()
     })
 
