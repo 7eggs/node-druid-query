@@ -15,8 +15,8 @@ function TestQuery(client, rawQuery) {
 util.inherits(TestQuery, Query)
 
 
-Query.addFields(TestQuery, ['aggregations', 'context', 'dimension', 'dimensions', 'filter', 'granularity', 'having', 'intervals', 'limitSpec', 'merge', 'metric', 'postAggregations', 'query', 'searchDimensions', 'sort', 'threshold', 'toInclude'])
-Query.addStatic(TestQuery, ['aggregations', 'extractionFunction', 'filter', 'having', 'intervals', 'orderBy', 'postAggregations', 'query'])
+Query.addFields(TestQuery, ['aggregations', 'context', 'dimension', 'dimensions', 'filter', 'granularity', 'having', 'interval', 'intervals', 'limitSpec', 'merge', 'metric', 'postAggregations', 'query', 'searchDimensions', 'sort', 'threshold', 'toInclude'])
+Query.addStatic(TestQuery, ['aggregations', 'extractionFunction', 'filter', 'having', 'interval', 'orderBy', 'postAggregations', 'query'])
 
 
 module.exports = TestQuery
