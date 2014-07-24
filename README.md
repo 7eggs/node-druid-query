@@ -139,6 +139,7 @@ API
     * [.extractionFunction(type, [args...])](#static-object-extractionfunctiontype-args)
     * [.filter(type, [args...])](#static-object-filtertype-args)
     * [.having(type, [args...])](#static-object-havingtype-args)
+    * [.interval(start, [end])](#static-object-intervalstart-end)
     * [.orderBy(dimension, [direction])](#static-object-orderbydimension-direction)
     * [.postAggregation(type, name, [args...])](#static-object-postaggregationtype-name-args)
     * [.postAggregations(list...)](#static-object-postaggregationslist)
@@ -152,7 +153,8 @@ API
     * [#filter(type, [args...])](#query-filtertype-args)
     * [#granularity(type, [args...])](#query-granularitytype-args)
     * [#having(type, [args...])](#query-havingtype-args)
-    * [#intervals([start], [end], [intervals...])](#query-intervalsstart-end-intervals)
+    * [#interval(start, [end])](#query-intervalstart-end)
+    * [#intervals(intervals...)](#query-intervalsintervals)
     * [#limitSpec(type, limit, orderByColumns)](#query-limitspectype-limit-orderbycolumns)
     * [#merge(value)](#query-mergevalue)
     * [#metric(type, [args...])](#query-metrictype-args)
@@ -308,6 +310,8 @@ __Arguments__
 ---
 
 ### Query (Druid.Query)
+
+__Note:__ each field method returns field value if no arguments specified.
 
 #### Query(client, [rawQuery])
 
@@ -499,6 +503,19 @@ __Query.having('not', spec...)__
 __Query.having('or', specs...)__
 
 * specs `object[] | ...object` - List of specs for `OR` operation.
+
+---
+
+#### `static` `object` interval(start, [end])
+
+Create interval string.
+
+Of one argument specified it's treated as interval string.
+
+__Arguments__
+
+* start `string | number | Date` - Interval string or start time as timestamp, date string or `Date` object.
+* end `string | number | Date` - End time.
 
 ---
 
@@ -696,19 +713,24 @@ __Arguments__
 
 ---
 
-#### `Query` intervals([start], [end], [intervals...])
+#### `Query` interval(start, [end])
 
-Set intervals.
-
-Use two date arguments if you specify one interval (`start` and `end`).
-
-In other cases use array arguments: each one will represent different interval (`intervals...`).
+Add interval string to `intervals` field.
 
 __Arguments__
 
-* start `number | string | Date` - Interval start.
-* end `number | string | Date` - Interval end.
-* intervals `...array` - Intervals list.
+* start `number | string | Date` - Start time or interval string.
+* end `number | string | Date` - End time.
+
+---
+
+#### `Query` intervals(intervals...)
+
+Set intervals.
+
+__Arguments__
+
+* list `string[] | ...string` - List of interval strings.
 
 ---
 
