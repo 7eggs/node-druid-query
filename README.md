@@ -5,6 +5,15 @@ druid-query
 
 Simple querying for Druid (http://druid.io) in Node.js. Inspired by [ruby-druid](https://github.com/liquidm/ruby-druid).
 
+
+[#topN([rawQuery])](#topnquery-topnrawquery)
+[Installation](#installation)
+[Introduction (Examples)](#example (simple))
+[API](#api)
+[Queries](#queries)
+[TODO](#todo)
+[License](#license)
+
 Installation
 ------------
 
