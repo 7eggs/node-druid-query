@@ -117,7 +117,7 @@ API
     * [#aggregation(type, name, [args...])](#query-aggregationtype-name-args)
     * [#aggregations(list...)](#query-aggregationslist)
     * [#context(data)](#query-contextdata)
-    * [#dataSource(dataSource)](#query-datasourcedatasource)
+    * [#dataSource(type, args...)](#query-datasourcetype-args)
     * [#dimension(dimension, [outputName], [extractFn])](#query-dimensiondimension-outputname-extractfn)
     * [#dimensions(list...)](#query-dimensionslist)
     * [#filter(type, [args...])](#query-filtertype-args)
@@ -559,13 +559,22 @@ __Arguments__
 
 ---
 
-#### `Query` dataSource(dataSource)
+#### `Query` dataSource(type, args...)
 
 Set `dataSource` field
 
 __Arguments__
 
-* dataSource `string` - Name of data source to query.
+* type `string | object` - Data source type. Or data source as string or as object ([DataSource](http://druid.io/docs/0.6.121/DataSource.html) structure).
+* args `...*` - Arguments specific to each data source type.
+
+__Query#dataSource('table', name)__
+
+* name `string` - Name of data source.
+
+__Query#dataSource('query', subQuery)__
+
+* subQuery `object | Query` - Sub-query as Query instance or raw query object.
 
 ---
 
