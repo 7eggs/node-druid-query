@@ -144,7 +144,7 @@ Client which uses ZooKeeper to get data about Druid nodes and then gets data sou
 
 #### Events
 
-* `ready` - emitted when client finished loading of nodes data (so it's ready to use). If client occasionally looses connection to ZooKeeper it's re-establed and client loads node data again and emits this event when done.
+* `ready` - emitted when client finished (re)loading of nodes data (so it's ready to use). If client occasionally looses connection to ZooKeeper it's re-establed and client loads node data again.
 * `error` - emitted when client receives any kind of error.
 
 #### Druid(connectionString, discoveryPath, [options])
@@ -164,6 +164,23 @@ __Arguments__
 #### void end()
 
 End working with client.
+
+---
+
+#### void exec(query, callback)
+
+Run `query` on suitable node.
+
+If client is not `ready` (read [Events](#events) section above) method will wait for `ready` or `error` event to continue.
+
+If `query` data source is not among served by found nodes `callback` will be called with corresponding error.
+
+Once node with least number of concurrent running queries is choosed `query` is sent to it.
+
+__Arguments__
+
+* query `Query` - `Query` (or descendant class) instance.
+* callback `function` - Callback function with following signature: `(err, result)`.
 
 ---
 
@@ -189,7 +206,7 @@ Get list of Nodes available.
 #### `TimeseriesQuery` timeseries(dataSource, [rawQuery])
 #### `TopNQuery` topN(dataSource, [rawQuery])
 
-Get node which serves given `dataSource` with least number of running queries and attach created `Query` object to it. If data source is unknown or client is not ready (read `Events` section above).
+Return query instance with `dataSource` set. Query is attached to calling `Druid` instance, so `Druid#exec(query, callback)` is called to execute query.
 
 __Arguments__
 
