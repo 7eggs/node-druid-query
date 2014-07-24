@@ -56,12 +56,40 @@ Example (ZooKeeper)
 var Druid = require('druid-query')
   , druid = new Druid('localhost:2181,localhost:2182/druid', '/broker', {preferSSL: true})
 
-druid.once('ready', function() {
-  var query = druid.timeBoundary('example_dataSource')
 
-  query.exec(function(err, results) {
-    // handle error & result
+var query = druid.groupBy('myCoolDS')
+
+query
+  .filter('selector', 'dimension1', 100500)
+  .dimensions('dimension2', 'dimension3')
+  .granularity('day')
+  .aggregation('count', 'howMany')
+  .intervals(Date.UTC(2012, 0, 1), Date.UTC(2015, 0, 1))
+  .exec(function(err, result) {
+    // handle error
+    // handle result
   })
+
+
+var anotherQuery = new Druid.SegmentMetadataQuery()
+anotherQuery.dataSource('superDS')
+anotherQuery.interval('2011-01-01/2012-01-01')
+anotherQuery.interval('2013-01-01/2014-01-01')
+
+druid.exec(anotherQuery, function(err, results) {
+  if (err) {
+    // error reasons:
+    // 1. data source is not served by any known node
+    // 2. query validation error
+    // 3. error from Druid node after executing query
+  }
+  else {
+    // handle results
+  }
+})
+
+druid.once('ready', function() {
+  // Do what you want with this event :-)
 })
 
 
@@ -81,6 +109,7 @@ API
     * [Events](#events)
     * [Druid(connectionString, discoveryPath, [options])](#druidconnectionstring-discoverypath-options)
     * [#end()](#void-end)
+    * [#exec(query, callback)](#void-execquery-callback)
     * [#getDataSources()](#string-getdatasources)
     * [#getNodes()](#druidnodes-getnodes)
     * [#groupBy(dataSource, [rawQuery])](#groupbyquery-groupbydatasource-rawquery)
@@ -206,7 +235,7 @@ Get list of Nodes available.
 #### `TimeseriesQuery` timeseries(dataSource, [rawQuery])
 #### `TopNQuery` topN(dataSource, [rawQuery])
 
-Return query instance with `dataSource` set. Query is attached to calling `Druid` instance, so `Druid#exec(query, callback)` is called to execute query.
+Return query instance with `dataSource` set. Query is attached to calling `Druid` instance, so [Druid#exec(query, callback)](#void-execquery-callback) is called to execute query.
 
 __Arguments__
 
