@@ -139,7 +139,7 @@ API
     * [.extractionFunction(type, [args...])](#static-object-extractionfunctiontype-args)
     * [.filter(type, [args...])](#static-object-filtertype-args)
     * [.having(type, [args...])](#static-object-havingtype-args)
-    * [.interval(start, [end])(#static-object-intervalstart-end)
+    * [.interval(start, [end])](#static-object-intervalstart-end)
     * [.orderBy(dimension, [direction])](#static-object-orderbydimension-direction)
     * [.postAggregation(type, name, [args...])](#static-object-postaggregationtype-name-args)
     * [.postAggregations(list...)](#static-object-postaggregationslist)
