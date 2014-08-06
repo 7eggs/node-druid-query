@@ -607,6 +607,16 @@ __Arguments__
 
 ---
 
+#### `Query` bound(value)
+
+Set `bound` field for [TimeBoundaryQuery](#timeboundaryquery-timeboundarydatasource-rawquery).
+
+__Arguments__
+
+* value `string` - Must be either `"minTime"` or `"maxTime"`. Otherwise error is thrown.
+
+---
+
 #### `Query` context(data)
 
 Set `context` field. Read more about it [here](http://druid.io/docs/latest/Querying.html).
