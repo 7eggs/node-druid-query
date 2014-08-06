@@ -324,6 +324,16 @@ __Arguments__
 
 ---
 
+#### void cancel(callback)
+
+Cancel query. `context.queryId` should be set for this.
+
+__Arguments__
+
+* callback(err) `function` - The callback function.
+
+---
+
 #### void exec(callback)
 
 Execute query (only if it's attached to client e.g. created by some client instance).
