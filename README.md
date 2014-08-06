@@ -609,15 +609,17 @@ __Arguments__
 
 #### `Query` context(data)
 
-Set `context` field.
+Set `context` field. Read more about it [here](http://druid.io/docs/latest/Querying.html).
 
 __Arguments__
 
-* data `object` - Query-specific options. I did not found any documentation. So look into source of `BaseQuery` class [here](https://github.com/metamx/druid/blob/master/processing/src/main/java/io/druid/query/BaseQuery.java#L125).
+* data `object`
+    * `timeout` `number`
     * `priority` `number`
-    * `bySegment` `boolean`
-    * `populateCache` `boolean`
+    * `queryId` `string`
     * `useCache` `boolean`
+    * `populateCache` `boolean`
+    * `bySegment` `boolean`
     * `finalize` `boolean`
 
 ---
