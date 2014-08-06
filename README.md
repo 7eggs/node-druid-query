@@ -117,6 +117,7 @@ API
 * [Druid](#druid)
     * [Events](#events)
     * [Druid(connectionString, discoveryPath, [options])](#druidconnectionstring-discoverypath-options)
+    * [#cancel(query, callback)](#void-cancelquery-callback)
     * [#end()](#void-end)
     * [#exec(query, callback)](#void-execquery-callback)
     * [#getDataSources()](#string-getdatasources)
@@ -130,8 +131,9 @@ API
 * [Client](#client-druidclient)
     * [Client(url)](#clienturl)
     * [.fromZooKeeper(connectionString, discoveryPath, [options], callback)](#static-void-fromzookeeperconnectionstring-discoverypath-options-callback)
+    * [#cancel(query, callback)](#void-cancelquery-callback-1)
     * [#dataSources(callback)](#void-datasourcescallback)
-    * [#exec(query, callback)](#void-execquery-callback)
+    * [#exec(query, callback)](#void-execquery-callback-1)
     * [#groupBy([rawQuery])](#groupbyquery-groupbyrawquery)
     * [#search([rawQuery])](#searchquery-searchrawquery)
     * [#segmentMetadata([rawQuery])](#segmentmetadataquery-segmentmetadatarawquery)
@@ -140,7 +142,8 @@ API
     * [#topN([rawQuery])](#topnquery-topnrawquery)
 * [Query](#query-druidquery)
     * [Query(client, [rawQuery])](#queryclient-rawquery)
-    * [#exec(callback))](#void-execcallback)
+    * [#cancel(callback)](#void-cancelcallback)
+    * [#exec(callback)](#void-execcallback)
     * [#toJSON()](#object-tojson)
 * Field setters ([Query](#query-druidquery) methods)
     * [.aggregation(type, name, [args...])](#static-object-aggregationtype-name-args)
@@ -155,6 +158,7 @@ API
     * [.query(type, value...)](#static-object-querytype-value)
     * [#aggregation(type, name, [args...])](#query-aggregationtype-name-args)
     * [#aggregations(list...)](#query-aggregationslist)
+    * [#bound(value)](#query-boundvalue)
     * [#context(data)](#query-contextdata)
     * [#dataSource(type, args...)](#query-datasourcetype-args)
     * [#dimension(dimension, [outputName], [extractFn])](#query-dimensiondimension-outputname-extractfn)
@@ -198,6 +202,17 @@ __Arguments__
 * options `object` - Client options.
     * `zookeeper` - Options passed to `node-zookeeper-client` [createClient()](https://github.com/alexguan/node-zookeeper-client#client-createclientconnectionstring-options) function.
     * `preferSSL` - Use SSL port of Druid node if available. Default: `false`.
+
+---
+
+#### void cancel(query, callback)
+
+Cancel query. Works same way as [#exec(query, callback)](#void-execquery-callback).
+
+__Arguments__
+
+* query `Query` - `Query` (or descendant class) instance.
+* callback `function` - Callback function with following signature: `(err)`.
 
 ---
 
@@ -279,6 +294,17 @@ __Arguments__
 * discoveryPath `string` - service discovery path.
 * options `object` - Lookup options. We have only one option currently available:
     * `preferSSL` - Use SSL port of Druid node if available. Default: `false`.
+
+---
+
+#### void cancel(query, callback)
+
+Cancel query.
+
+__Arguments__
+
+* query `Query` - Query object.
+* callback(err) `function` - The callback function.
 
 ---
 
