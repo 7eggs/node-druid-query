@@ -17,14 +17,14 @@
   },
   "dependencies": {
     "custom-error-generator": "^7.0.0",
-    "debug": "^1.0.4",
+    "debug": "^2.1.0",
     "lodash": "^2.4.1",
     "node-zookeeper-client": "^0.2.1",
-    "request": "^2.37.0"
+    "request": "^2.49.0"
   },
   "devDependencies": {
     "expect.js": "^0.3.1",
-    "mocha": "^1.20.1"
+    "mocha": "^2.0.1"
   },
   "scripts": {
     "test": "./node_modules/.bin/mocha --recursive -R spec spec/"
