@@ -6,7 +6,7 @@
     "query",
     "http"
   ],
-  "version": "0.0.13",
+  "version": "1.0.0",
   "main": "lib/index.js",
   "repository": {
     "type": "git",
@@ -18,7 +18,9 @@
   "dependencies": {
     "custom-error-generator": "^7.0.0",
     "debug": "^2.1.0",
-    "lodash": "^2.4.1",
+    "lodash.assign": "^4.0.2",
+    "lodash.foreach": "^4.0.0",
+    "lodash.values": "^4.0.0",
     "node-zookeeper-client": "^0.2.1",
     "request": "^2.49.0"
   },
@@ -27,8 +29,11 @@
     "mocha": "^2.0.1"
   },
   "scripts": {
-    "test": "./node_modules/.bin/mocha --recursive -R spec spec/"
+    "test": "mocha --recursive -R spec spec/"
   },
   "author": "Alexander Makarenko <estliberitas@gmail.com>",
+  "contributors": [
+    "James Womack <jwomack@netflix.com>"
+  ],
   "license": "MIT"
 }
