@@ -155,7 +155,7 @@ API
     * [.orderBy(dimension, [direction])](#static-object-orderbydimension-direction)
     * [.postAggregation(type, name, [args...])](#static-object-postaggregationtype-name-args)
     * [.postAggregations(list...)](#static-object-postaggregationslist)
-    * [.query(type, value...)](#static-object-querytype-value)
+    * [.query(type, value, caseSensitive)](#static-object-querytype-value)
     * [#aggregation(type, name, [args...])](#query-aggregationtype-name-args)
     * [#aggregations(list...)](#query-aggregationslist)
     * [#bound(value)](#query-boundvalue)
@@ -858,14 +858,15 @@ __Arguments__
 
 ---
 
-#### `Query` query([type], value...)
+#### `Query` query([type], value, caseSensitive)
 
 Set SearchQuery spec (`query` field).
 
 __Arguments__
 
-* type `string | object` - SearchQuery type: `insensitive_contains`, `fragment`. Or it can be `SearchQuerySpec` object.
-* value `string | string[] | ...string` - Value(s) to match. If `type` is `fragment` value is treated as array. If type is `insensitive_contains` value is used as `string`.
+* type `string | object` - SearchQuery type: `insensitive_contains`, `fragment`, `contains`. Or it can be `SearchQuerySpec` object.
+* value `string | string[]` - Value(s) to match. If `type` is `fragment` value is treated as array. If type is `insensitive_contains` value is used as `string`.
+* caseSensitive `boolean` -  Whether strings should be compared as case sensitive or not. Has no effect for type `insensitive_contains`.
 
 ---
 

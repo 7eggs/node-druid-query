@@ -37,16 +37,8 @@ describe('Query', function() {
 
       expect(raw.query).to.eql({
         type:   'fragment',
-        values: ['fragment1', 'fragment2']
-      })
-    })
-
-    it('should set FragmentSearchQuerySpec using each argument as value', function() {
-      var raw = query.query('fragment', 'fragment1', 'fragment2').toJSON()
-
-      expect(raw.query).to.eql({
-        type:   'fragment',
-        values: ['fragment1', 'fragment2']
+        values: ['fragment1', 'fragment2'],
+        caseSensitive: false
       })
     })
 
