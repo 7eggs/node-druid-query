@@ -186,4 +186,63 @@ describe('Filters', function() {
       }).to.throwException()
     })
   })
+
+  describe('Search', function() {
+    it('should create filter with insensitive_contains', function() {
+      var query = Query.query('insensitive_contains', 'value1');
+      var spec = Query.filter('search', 'dimension', query);
+
+      expect(spec).to.eql({
+        type:      'search',
+        dimension: 'dimension',
+        query:  {
+          type: 'insensitive_contains',
+          value: 'value1'
+        }
+      })
+    })
+
+    it('should create filter with fragment', function() {
+      var query = Query.query('fragment', ['value1', 'value2']);
+      var spec = Query.filter('search', 'dimension', query);
+
+      expect(spec).to.eql({
+        type:      'search',
+        dimension: 'dimension',
+        query:  {
+          type: 'fragment',
+          values: ['value1', 'value2'],
+          caseSensitive: false
+        }
+      })
+    })
+
+    it('should create filter with contains case sensitive', function() {
+      var query = Query.query('contains', 'value1',  true);
+      var spec = Query.filter('search', 'dimension', query);
+
+      expect(spec).to.eql({
+        type:      'search',
+        dimension: 'dimension',
+        query:  {
+          type: 'contains',
+          value: 'value1',
+          caseSensitive: true
+        }
+      })
+    })
+
+    it('should throw error if dimension is not specified', function() {
+      expect(function() {
+        var query = Query.query('fragment', ['value1', 'value2']);
+        Query.filter('search', null, query)
+      }).to.throwException()
+    })
+
+    it('should throw error if query is not specified', function() {
+      expect(function() {
+        Query.filter('search', 'dimension', null)
+      }).to.throwException()
+    })
+  })
 })
