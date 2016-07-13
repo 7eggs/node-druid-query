@@ -702,7 +702,9 @@ __Query#dataSource('query', subQuery)__
 
 Set DimensionSpec. 
 
-Depending on arguments length creates default or extraction dimension spec.
+If first argument is an object, then just use it as DimensionSpec.
+
+If not depending on arguments length creates default or extraction dimension spec.
 
 If second or third argument is object ExtractionDimensionSpec is created.
 
@@ -710,7 +712,7 @@ In other cases DefaultDimensionSpec is created.
 
 __Arguments__
 
-* dimension `string` - Dimension to operate on.
+* dimension `string | object` - Dimension to operate on. Or dimension definition as object.
 * outputName `string` - Dimension output name.
 * extractFn `object` - Extraction function spec created by [Query.extractionFunction()](#static-object-extractionfunctiontype-args) or raw JavaScript object.
 
