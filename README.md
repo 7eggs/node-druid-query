@@ -481,7 +481,7 @@ Create filter spec.
 
 __Arguments__
 
-* type `string | object` - Filter type: `and`, `javascript`, `not`, `or`, `regex`, `selector` - or raw filter object.
+* type `string | object` - Filter type: `and`, `javascript`, `not`, `or`, `regex`, `selector`, `search` - or raw filter object.
 * args `...*` - Filter-specific arguments. Described below.
 
 __Query.filter('and', filters...)__
@@ -510,6 +510,11 @@ __Query.filter('selector', dimension, value)__
 
 * dimensions `string` - Dimension to which filter is applied.
 * value `*` - Value to match.
+
+__Query.filter('search', dimension, query)__
+
+* dimensions `string` - Dimension to which filter is applied.
+* query `*` - `SearchQuerySpec` object
 
 ---
 
