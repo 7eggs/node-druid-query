@@ -1,4 +1,4 @@
-druid-query
+adruid-query
 ================
 
 [![NPM version](https://badge.fury.io/js/druid-query.svg)](http://badge.fury.io/js/druid-query) [![Build Status](https://travis-ci.org/7eggs/node-druid-query.svg)](https://travis-ci.org/7eggs/node-druid-query)
@@ -481,7 +481,7 @@ Create filter spec.
 
 __Arguments__
 
-* type `string | object` - Filter type: `and`, `javascript`, `not`, `or`, `regex`, `selector`, `search` - or raw filter object.
+* type `string | object` - Filter type: `and`, `javascript`, `not`, `or`, `regex`, `selector`, `search`, `in` - or raw filter object.
 * args `...*` - Filter-specific arguments. Described below.
 
 __Query.filter('and', filters...)__
@@ -515,6 +515,13 @@ __Query.filter('search', dimension, query)__
 
 * dimensions `string` - Dimension to which filter is applied.
 * query `*` - `SearchQuerySpec` object
+
+---
+
+__Query.filter('in', dimension, values)__
+
+* dimensions `string` - Dimension to which filter is applied.
+* values `object[]` - Values to match.
 
 ---
 
