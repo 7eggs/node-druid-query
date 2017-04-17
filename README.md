@@ -1,4 +1,4 @@
-adruid-query
+druid-query
 ================
 
 [![NPM version](https://badge.fury.io/js/druid-query.svg)](http://badge.fury.io/js/druid-query) [![Build Status](https://travis-ci.org/7eggs/node-druid-query.svg)](https://travis-ci.org/7eggs/node-druid-query)
