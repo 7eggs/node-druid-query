@@ -245,4 +245,28 @@ describe('Filters', function() {
       }).to.throwException()
     })
   })
+
+  describe('In', function() {
+    it('should create filter', function() {
+      var spec = Query.filter('in', 'dim', ['value1', 'value2'])
+
+      expect(spec).to.eql({
+        type:      'in',
+        dimension: 'dim',
+        values:    ['value1', 'value2']
+      })
+    })
+
+    it('should throw error if dimension is not specified', function() {
+      expect(function() {
+        Query.filter('in', null, 'value')
+      }).to.throwException()
+    })
+
+    it('should throw error if value is not specified', function() {
+      expect(function() {
+        Query.filter('in', 'dimension')
+      }).to.throwException()
+    })
+  })
 })
