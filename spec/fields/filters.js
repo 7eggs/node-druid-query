@@ -170,7 +170,7 @@ describe('Filters', function() {
       expect(spec).to.eql({
         type:      'javascript',
         dimension: 'dimension',
-        function:  'function (value) { return value === \'event\' }'
+        function:  'function(value) { return value === \'event\' }'
       })
     })
 

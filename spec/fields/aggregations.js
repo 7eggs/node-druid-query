@@ -87,9 +87,9 @@ describe('Aggregations', function() {
 
       expect(spec.type).to.be('javascript')
       expect(spec.name).to.be('output')
-      expect(spec.aggregateFn).to.be.a('string')
-      expect(spec.combineFn).to.be.a('string')
-      expect(spec.resetFn).to.be.a('string')
+      expect(spec.fnAggregate).to.be.a('string')
+      expect(spec.fnCombine).to.be.a('string')
+      expect(spec.fnReset).to.be.a('string')
     })
 
     it('should throw error when field names array is empty', function() {
