@@ -1,4 +1,4 @@
-⚠️⚠️⚠️ LOOKING FOR MAINTAINERS ⚠️⚠️⚠️
+⚠️⚠️⚠️ [LOOKING FOR MAINTAINERS](https://github.com/7eggs/node-druid-query/issues/40) ⚠️⚠️⚠️
 -----
 
 
