@@ -22,7 +22,7 @@
     "lodash.foreach": "^4.0.0",
     "lodash.values": "^4.0.0",
     "node-zookeeper-client": "^0.2.1",
-    "request": "2.49.0 - 2.76.0"
+    "request": "2.49.0 - 2.89.0"
   },
   "devDependencies": {
     "expect.js": "^0.3.1",
