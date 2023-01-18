@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "custom-error-generator": "^7.0.0",
-    "debug": "^2.1.0",
+    "debug": "^3.1.0",
     "lodash.assign": "^4.0.2",
     "lodash.foreach": "^4.0.0",
     "lodash.values": "^4.0.0",
