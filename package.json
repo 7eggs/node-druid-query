@@ -26,7 +26,7 @@
   },
   "devDependencies": {
     "expect.js": "^0.3.1",
-    "mocha": "^2.0.1"
+    "mocha": "^10.2.0"
   },
   "scripts": {
     "test": "mocha --recursive -R spec spec/"
